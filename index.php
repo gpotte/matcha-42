@@ -1,8 +1,8 @@
 <?php
   session_start();
   $user = "visiteur";
-  if ($_SESSION["login"])
-    $user = $_SESSION["login"];
+  if (isset($_SESSION["login"]))
+      $user = $_SESSION["login"];
 ?>
 <html>
 <head>
@@ -33,7 +33,7 @@
     <form class="invisible_tab" id="logform">
       <input type="text" id="login" placeholder="login *" min=6 required><br>
       <input type="password" id=password placeholder="Password *" min=8 required><br>
-      <input type=submit value="log-in">
+      <input type=submit value="validate">
     </form>
     <form id="signform">
       <input type="text" id=login placeholder="login *" min=6 required><br>
@@ -54,13 +54,13 @@
         <option value=both>les deux</option>
       </select><br>
       <input type=checkbox id=cgu required><p id="cgu_value">J'accepte Les CGU *</p></input><br>
-      <input type=submit value="sign up">
+      <input type=submit value="validate">
     </form>
     <h3 id=result><h3>
   </div>
 <?php }?>
 <!-- CREATION DE COMPTE OU LOGIN -->
-<div id="footer"><h4>Matcha by Gpotte ;)</h4></div>
+<div id="footer"><h5>Matcha by Gpotte ;)</h5></div>
 </body>
 <script src=index/login_page.js></script>
 </html>
