@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,300i,400,700');
+
+#header {
+  color: tomato;
+  text-align: center;
+  width : 100%;
+  font-family: 'Roboto', sans-serif;
+  font-weight: bolder;
+}
+
+#header h3 {
+  font-weight: lighter;
+}
+
+#header img{
+  float: left;
+  width: 2em;
+  margin-right: 1%;
+}
+
+body {
+  background-color: #fafafa;
+  margin: 0;
+}
+
+/* FORM STYLE POUR LOGIN + CREATION DE COMPTE*/
+
+
+
+#form_tab {
+  top :50%;
+  left :50%;
+  transform: translate(0%,25%);
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  margin: none;
+  justify-content: center;
+}
+
+#get_sign {
+  background-color: #E5E5E5;
+  margin-left: -4px;
+}
+
+#get_log {
+  background-color: white;
+}
+
+#button_form button{
+  width : 10%;
+  min-width: 130px;
+  font-size: 1em;
+  text-align: center;
+  margin-bottom: 1%;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  padding: 12px 0px 12px 0px;
+  width : 15%;
+}
+
+#button_form button:focus{
+  outline: none;
+}
+
+#button_form button:active {
+  transform: translateY(-4px);
+}
+
+input[type=submit]:active{
+    transform: translateY(4px);
+}
+
+input,
+select{
+ width : 20%;
+ min-width: 260px;
+ font-size: 1em;
+ margin-bottom: 1%;
+ box-sizing: border-box;
+ border: 1px solid #ccc;
+ border-radius: 3px;
+ background-color: white;
+ padding: 12px 20px 12px 40px;
+}
+
+input:focus,
+select{
+  outline: none;
+}
+
+select{
+  font-family: 'Roboto', sans-serif;
+  font-weight: lighter;
+}
+#cgu {
+  width : 10%;
+  transform: translate(0,50%);
+}
+
+#cgu_value {
+  margin-bottom: -31px;
+  transform: translate(25%, -165%);
+}
+
+input[type="submit"]{
+  width : 15%;
+  background-color: #E5E5E5;
+}
+
+#result {
+    color: tomato;
+    font-family: 'Roboto', sans-serif;
+    font-weight: lighter;
+}
+/* AFFICHER SEULEMENT 1 ONGLET*/
+
+ .invisible_tab {
+   display: none;
+ }
+
+ .visible_tab {
+   margin-top: 87px;
+ }
+/* AFFICHER SEULEMENT 1 ONGLET*/
+
+/* FORM STYLE POUR LOGIN + CREATION DE COMPTE*/
+
+#footer {
+  width : 100%;
+  position: absolute;
+  bottom: 0;
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+  font-weight: lighter;
+}
