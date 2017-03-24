@@ -47,6 +47,7 @@ if (strlen($mail) > 55)
 }
 /* CHECK SIZE OF THE INFOS */
 /*         CHECK ALL THE INFO           *//*         CHECK ALL THE INFO           *//*         CHECK ALL THE INFO           */
+$pwd = hash(sha1, $pwd);
 /*PREPARE QUERY */
 if ($sex == "null" && $pref == "null")
 {
