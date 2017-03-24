@@ -40,12 +40,12 @@ body {
 }
 
 #get_sign {
-  background-color: #E5E5E5;
+  background-color: white;
   margin-left: -4px;
 }
 
 #get_log {
-  background-color: white;
+  background-color: #E5E5E5;
 }
 
 #signform {

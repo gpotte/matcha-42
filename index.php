@@ -1,4 +1,7 @@
 <?php
+  include_once (__DIR__.'/config/setup.php');
+
+  create_db();
   session_start();
   if (isset($_SESSION["login"]))
       $user = $_SESSION["login"];
@@ -10,7 +13,7 @@
   <link rel="icon" href="ressources/favicon.ico">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <title>
-    Matcha: <?php echo $user;?>
+    Matcha <?php if (isset($_SESSION["login"])){echo ":".$user;}?>
   </title>
 </head>
 <body>
@@ -30,24 +33,24 @@
       <button id="get_sign">Sign-up</button>
     </div>
     <form class="invisible_tab" id="logform">
-      <input type="text" id="login" placeholder="login *" min=6 required><br>
-      <input type="password" id=password placeholder="Password *" min=8 required><br>
+      <input type="text" id="login" placeholder="login *" required><br>
+      <input type="password" id=password placeholder="Password *" required><br>
       <input type=submit value="validate">
     </form>
     <form id="signform">
-      <input type="text" id=login placeholder="Login *" min=6 required><br>
-      <input type="text" id=name placeholder="Name *" required><br>
-      <input type="text" id=firstname placeholder="First Name *" required><br>
-      <input type="mail" id=mail placeholder="Mail *" required><br>
-      <input type="password" id=password placeholder="Password *" min=8 required><br>
-      <input type="password" id=check placeholder="Repeat Password *" min=8 required><br>
-      <select id="sexe">
-        <option>sexe</option>
+      <input type="text" id=login name="login" placeholder="Login *" required><br>
+      <input type="text" id=name name="name" placeholder="Name *" required><br>
+      <input type="text" id=firstname name="firstname" placeholder="First Name *"required><br>
+      <input type="mail" id=mail name="mail" placeholder="Mail *" required><br>
+      <input type="password" id=password name="pwd" placeholder="Password *" required><br>
+      <input type="password" id=check name="check" placeholder="Repeat Password *" required><br>
+      <select id="sexe" name="sex">
+        <option value=null>sexe</option>
         <option value=male>homme</option>
         <option value=female>femme</option>
       </select><br>
-      <select id="pref">
-        <option>preference</option>
+      <select id="pref" name=pref>
+        <option value=null>preference</option>
         <option value=male>homme</option>
         <option value=female>femme</option>
         <option value=both>les deux</option>
@@ -63,4 +66,5 @@
 </body>
 <script src=index/field_validity.js></script>
 <script src=index/login_page.js></script>
+<script src=login/error_handling.js></script>
 </html>
