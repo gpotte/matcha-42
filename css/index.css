@@ -130,9 +130,10 @@ input[type="submit"]{
 /* FORM STYLE POUR LOGIN + CREATION DE COMPTE*/
 
 #footer {
+  position: fixed;
   width : 100%;
   height: 3%;
-  bottom: 0;
+  bottom: 1;
   background-color:  #E5E5E5;
   padding-top: 1%;
   padding-bottom: 4%;

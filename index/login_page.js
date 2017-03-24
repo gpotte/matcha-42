@@ -13,9 +13,8 @@ $("#get_sign").click(function(){
   $("#logform").addClass("invisible_tab");
 });
 
-$("#signform").submit(function(ev){
-  ev.preventDefault();
-});
+/*  TRANSITION POUR LES FORMULAIRES DE SIGNUP/LOGIN   */
+
 
 $("#logform").submit(function(ev){
   ev.preventDefault();
@@ -24,6 +23,4 @@ $("#logform").submit(function(ev){
 
 $("#signform").submit(function(ev){
   ev.preventDefault();
-
 });
-/*  TRANSITION POUR LES FORMULAIRES DE SIGNUP/LOGIN   */
