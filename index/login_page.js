@@ -21,7 +21,7 @@ $("#logform").submit(function(ev){
   ajaxLogIn(function(output){
     if (output == "Success")
     {
-      $("#result").html("A confirmation Mail have been sent to your account");
+      $("#result").html("Login successful");
         location.reload();
     }
     else

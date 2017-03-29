@@ -8,7 +8,11 @@
 ?>
 <html>
 <head>
+<?php if (!isset($user)){ ?>
+  <link rel="stylesheet" type="text/css" href="css/form.css">
+<?php } else { ?>
   <link rel="stylesheet" type="text/css" href="css/index.css">
+<?php }?>
   <meta charset="UTF-8">
   <link rel="icon" href="ressources/favicon.ico">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -33,8 +37,8 @@
       <button id="get_sign">Sign-up</button>
     </div>
     <form class="invisible_tab" id="logform">
-      <input type="text" id="login" placeholder="login *" required><br>
-      <input type="password" id=password placeholder="Password *" required><br>
+      <input type="text" id="login" name="login" placeholder="login *" required><br>
+      <input type="password" id=password name="pwd" placeholder="Password *" required><br>
       <input type=submit value="validate">
     </form>
     <form id="signform">
@@ -58,6 +62,7 @@
       <input type=checkbox id=cgu required><p id="cgu_value">J'accepte Les CGU *</p></input><br>
       <input type=submit value="validate">
     </form>
+    <a  href="lost_pwd/index.php"><button id="lost">password lost</button></a>
     <h3 id=result></h3>
   </div>
 <?php }?>
@@ -66,5 +71,4 @@
 </body>
 <script src=index/field_validity.js></script>
 <script src=index/login_page.js></script>
-<script src=login/error_handling.js></script>
 </html>

@@ -1,5 +1,6 @@
 <?php
 include_once (__DIR__."/../config/connect_db.php");
+include_once (__DIR__."/../mail/send_mail.php");
 
 $pdo = connect_db();
 $login = $_POST["login"];
@@ -35,6 +36,11 @@ if ($sth->fetch())
 }
 /* CHECK IF THE USER ALREADY EXIST */
 /* CHECK SIZE OF THE INFOS */
+if (strlen($login) < 6)
+{
+  echo "your login is too short";
+  return;
+}
 if (strlen($login) > 20 || strlen($name) > 20 || strlen($firstname) > 20)
 {
   echo "your login or your name must be 20 characters max";
@@ -74,7 +80,7 @@ else
 $sth = $pdo->prepare($query);
 $sth->execute($array);
 /* SEND CONFIRMATION MAIL TO THE NEW USER */
-// signUpMail($mail, $login, $acc_hash);
+confirmation_mail($login, $mail, $acc_hash);
 echo "Success";
 
 function passwd_security($pwd){

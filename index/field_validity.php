@@ -23,9 +23,9 @@
   function checkPwd($pwd)
   {
     if (strlen($pwd) < 8)
-      echo "Password Too Short";
+      echo "Your Password must be at least 8 characters and contains letters and numbers";
     else if (!preg_match("#[0-9]+#", $pwd) || !preg_match("#[a-zA-Z]+#", $pwd))
-      echo "Your Password must contains letters and numbers";
+      echo "Your Password must be at least 8 characters and contains letters and numbers";
   }
 
   function checkCheck($check, $pwd)
