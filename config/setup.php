@@ -16,6 +16,9 @@ function create_db(){
                 `passwd` VARCHAR(41) NOT NULL ,
                 `verified` BOOLEAN NOT NULL DEFAULT FALSE ,
                 `acc_hash` VARCHAR(41) NOT NULL ,
+                `bio` VARCHAR(350) NULL,
+                `score` INT NOT NULL DEFAULT 0,
+                `localisation` VARCHAR(6) NOT NULL,
                 PRIMARY KEY (`id`)) ENGINE = InnoDB;";
 
                 try {

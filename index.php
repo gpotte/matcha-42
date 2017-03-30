@@ -1,6 +1,7 @@
 <?php
   include_once (__DIR__.'/index/form.php');
   include_once (__DIR__.'/config/setup.php');
+  include_once (__DIR__.'/utility/get_loc.php');
 
   create_db();
   session_start();
@@ -36,7 +37,9 @@
   form();
  }  ?>
 <!-- CREATION DE COMPTE OU LOGIN -->
-<div id="footer"><h5>Matcha by Gpotte ;)</h5></div>
+<div id="footer"><h5>Matcha by Gpotte ;)</h5>
+<?php get_post_code()?>
+</div>
 </body>
 <script src=index/field_validity.js></script>
 <script src=index/login_page.js></script>
