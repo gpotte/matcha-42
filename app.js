@@ -25,11 +25,21 @@ MongoClient.connect("mongodb://localhost/matcha", function(error, result) {
 });
 
 app.get('/', (req, res)=>{
+    //app.db.collection("users").insert({username: "gpotte"}, (err, result)=>{console.log(result)});
+    res.cookie("user", {username: "gpotte", hash: "5964ad5fb00c453443faea43"});
+    // res.clearCookie("user")
     res.redirect('/home');
 });
 
-app.get('/home', (req, res)=>{
-    res.render('index');
+app.get('/home', middleware.loggedIn(), (req, res)=>{
+    // app.db.collection("users").findOne({}, (err, user)=>{
+    //   console.log(user);
+    // });
+    res.send('index');
+});
+
+app.get('/login', (req, res)=>{
+    res.send('login');
 });
 
 http.listen(port, ()=>{
