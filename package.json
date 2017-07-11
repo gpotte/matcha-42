@@ -12,5 +12,12 @@
   },
   "author": "",
   "license": "ISC",
-  "homepage": "https://bitbucket.org/gpotte/matcha#readme"
+  "homepage": "https://bitbucket.org/gpotte/matcha#readme",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "cookie-parser": "^1.4.3",
+    "ejs": "^2.5.6",
+    "express": "^4.15.3",
+    "mongodb": "^2.2.30"
+  }
 }
