@@ -1,0 +1,15 @@
+.navbar-header {
+    float: left;
+    padding: 15px;
+    text-align: center;
+    width: 100%;
+}
+.navbar-default .navbar-brand {
+  float:none;
+  color: tomato;
+}
+
+.jumbotron h2{
+  text-align: center;
+  color: tomato;
+}
