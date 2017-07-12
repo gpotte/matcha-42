@@ -1,4 +1,5 @@
 var express      = require('express'),
+    colors       = require(process.env.PWD + '/colors.js'),
     app          = express(),
     http         = require('http').Server(app),
     bodyParser   = require('body-parser'),
@@ -20,27 +21,29 @@ MongoClient.connect("mongodb://localhost/matcha", function(error, result) {
     else
     {
       app.db = result;
-      console.log("\x1b[1m\x1b[42m%s\x1b[0m", "Connected to matcha Db");
+      console.log("%s%sConnected to matcha Db%s", colors.BgGreen, colors.Bright, colors.Reset);
     }
 });
 
 app.get('/', (req, res)=>{
-    //app.db.collection("users").insert({username: "gpotte"}, (err, result)=>{console.log(result)});
-    res.cookie("user", {username: "gpotte", hash: "5964ad5fb00c453443faea43"});
+    // app.db.collection("users").insert({username: "gpotte"}, (err, result)=>{console.log(result)});
+    // res.cookie("user", {username: "gpotte", hash: "5964ad5fb00c453443faea43"});
     // res.clearCookie("user")
     res.redirect('/home');
 });
 
 app.get('/home', middleware.loggedIn(), (req, res)=>{
-    // app.db.collection("users").findOne({}, (err, user)=>{
-    //   console.log(user);
-    // });
     res.send('index');
 });
 
-app.get('/login', (req, res)=>{
-    res.send('login');
-});
+//EXPRESS ROUTER
+var loginRoute  = require(process.env.PWD + '/routes/login');
+    //userRoute   = require('./routes/user');
+
+//Login routes (form + post)
+app.use('/login', loginRoute);
+//User Routes (create, edit, access user)
+//app.use('/user', userRoute);
 
 http.listen(port, ()=>{
   console.log("server running on port %d", port);
