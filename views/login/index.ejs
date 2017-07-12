@@ -4,11 +4,11 @@
     <h2>Log-In<h2>
     <form action="/login" method="post">
       <div class="form-group">
-        <input type="text" name="username" placeholder="Username" class="form-control">
-        <input type="password" name="password" placeholder="Password" class="form-control">
+        <input type="text" name="username" placeholder="Username" class="form-control" required=true>
+        <input type="password" name="password" placeholder="Password" class="form-control" required=true>
       </div>
-      <input type='submit' class="btn btn-default btn-primary">
-      <a></a>
+      <input type='submit' class="btn btn-default btn-primary" value="Log In">
+      <a class="btn btn-default btn-warning" href="/user/new">Sign In</a>
     </form>
   </div>
 </div>

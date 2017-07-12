@@ -1,5 +1,5 @@
 var express      = require('express'),
-    colors       = require(process.env.PWD + '/colors.js'),
+    colors       = require('colors'),
     app          = express(),
     http         = require('http').Server(app),
     bodyParser   = require('body-parser'),
@@ -16,12 +16,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'));
 app.set("view engine", "ejs");
 
-MongoClient.connect("mongodb://localhost/matcha", function(error, result) {
+MongoClient.connect("mongodb://localhost/matcha", function(error, db) {
     if (error) console.log("\x1b[41m%s\x1b[0m", error)
     else
     {
-      app.db = result;
-      console.log("%s%sConnected to matcha Db%s", colors.BgGreen, colors.Bright, colors.Reset);
+      app.db = db;
+      console.log("Connected to matcha Db".bgGreen.black);
     }
 });
 
@@ -36,15 +36,20 @@ app.get('/home', middleware.loggedIn(), (req, res)=>{
     res.send('index');
 });
 
-//EXPRESS ROUTER
+///////////////////////EXPRESS ROUTER//////////////////////////////////////
 var loginRoute  = require(process.env.PWD + '/routes/login');
-    //userRoute   = require('./routes/user');
+    userRoute   = require('./routes/user');
 
 //Login routes (form + post)
 app.use('/login', loginRoute);
 //User Routes (create, edit, access user)
-//app.use('/user', userRoute);
+app.use('/user', userRoute);
+///////////////////////EXPRESS ROUTER//////////////////////////////////////
+
+app.get('*', (req, res)=>{
+  res.render('404', {title: '404'});
+});
 
 http.listen(port, ()=>{
-  console.log("server running on port %d", port);
+  console.log("server running on port %d".random, port);
 });
