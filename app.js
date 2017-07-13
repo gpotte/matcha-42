@@ -28,8 +28,6 @@ MongoClient.connect("mongodb://localhost/matcha", function(error, db) {
 });
 
 app.get('/', (req, res)=>{
-    // app.db.collection("users").insert({username: "gpotte"}, (err, result)=>{console.log(result)});
-    // res.cookie("user", {username: "gpotte", hash: "5964ad5fb00c453443faea43"});
     // res.clearCookie("user")
     res.redirect('/home');
 });
