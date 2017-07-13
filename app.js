@@ -1,11 +1,13 @@
-var express      = require('express'),
-    colors       = require('colors'),
-    app          = express(),
-    http         = require('http').Server(app),
-    bodyParser   = require('body-parser'),
-    cookieParser = require('cookie-parser'),
-    MongoClient  = require("mongodb").MongoClient,
-    crypto       = require('crypto');
+express      = require('express'),
+router       = express.Router(),
+colors       = require('colors'),
+app          = express(),
+http         = require('http').Server(app),
+bodyParser   = require('body-parser'),
+cookieParser = require('cookie-parser'),
+MongoClient  = require("mongodb").MongoClient,
+crypto       = require('crypto'),
+xss          = require('xss');
 
 var port         = process.env.PORT || 3030,
     middleware   = require(__dirname + "/functions/middleware.js");
