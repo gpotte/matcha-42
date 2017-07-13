@@ -22,3 +22,11 @@ h2 small {
   padding-top: 0;
   font-size: 50%;
 }
+
+.inactive {
+  display: none;
+}
+
+.active {
+  display: block;
+}
