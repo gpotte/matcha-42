@@ -2,13 +2,13 @@
 <div class="container">
   <div class="jumbotron">
     <h2>Create a new account<h2>
-    <form action="/user/new" method="post">
+    <form id="signInForm">
       <div class="form-group">
         <input id="username" type="text" name="username" placeholder="Username *" class="form-control" pattern=".{5,}" required=true>
         <small id="usernameCond" class="form-text text-muted inactive">login must be at least 5 character</small>
-        <input type="email" name="mail" placeholder="mail *" class="form-control" required=true>
-        <input type="text" name="name" placeholder="name *" class="form-control" required=true>
-        <input type="text" name="firstname" placeholder="firstname *" class="form-control" required=true>
+        <input type="email" name="mail" placeholder="Mail *" class="form-control" required=true>
+        <input type="text" name="name" placeholder="Name *" class="form-control" required=true>
+        <input type="text" name="firstname" placeholder="Firstname *" class="form-control" required=true>
         <input id="password" type="password" name="password" placeholder="Password *" class="form-control" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required=true>
         <small id="passwordCond" class="form-text text-muted inactive">Password must be at least 8 character and contain min MAJ and number</small>
       </div>

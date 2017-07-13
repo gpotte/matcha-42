@@ -51,5 +51,5 @@ app.get('*', (req, res)=>{
 });
 
 http.listen(port, ()=>{
-  console.log("server running on port %d".random, port);
+  console.log("server running on port %d".zebra, port);
 });
