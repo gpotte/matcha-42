@@ -1,0 +1,16 @@
+<% include ../partials/header %>
+<div class="container">
+  <div class="jumbotron">
+    <h2>Password Lost<h2>
+    <form id="lostForm">
+      <div class="form-group">
+        <input type="text" name="username" placeholder="Username" class="form-control" required=true>
+        <input type="text" name="mail" placeholder="Email" class="form-control" required=true>
+      </div>
+      <input type='submit' class="btn btn-default btn-primary" value="Submit">
+      <a class="btn btn-default btn-warning" href="/login">Log In</a>
+    </form>
+  </div>
+</div>
+<script src="/js/form.js"></script>
+<% include ../partials/footer %>

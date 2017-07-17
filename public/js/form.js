@@ -50,11 +50,7 @@ $('#signInForm').submit((ev)=>{
           <strong>Error</strong> An error Occured please contact us </div>");
         }
         if (data === "Success")
-        {
-          $(".container").prepend("<div class='alert alert-success alert-dismissable fade in'>\
-          <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>\
-          <strong>Success</strong> we are sending you a confirmation mail </div>");
-        }
+          $(location).attr('href', "http://localhost:3030/");
         console.log(data);
       }
     });
@@ -78,6 +74,66 @@ $('#logInForm').submit((ev)=>{
           $(".container").prepend("<div class='alert alert-danger alert-dismissable fade in'>\
           <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>\
           <strong>Error</strong> Wrong Login or Password</div>");
+        }
+        if (data === "Success")
+          $(location).attr('href', "http://localhost:3030/");
+        console.log(data);
+      }
+    });
+});
+
+$('#lostForm').submit((ev)=>{
+  var formdata = $('#lostForm').serializeArray();
+  var data = {};
+  $(formdata).each(function(index, obj){
+    data[obj.name] = obj.value;
+  });
+  ev.preventDefault();
+    $.ajax({
+      type: 'POST',
+      data: JSON.stringify(data),
+      contentType: 'application/json',
+      url: 'http://localhost:3030/login/lost',
+      success: function(data) {
+        if (data === "Error")
+        {
+          $(".container").prepend("<div class='alert alert-danger alert-dismissable fade in'>\
+          <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>\
+          <strong>Error</strong> Wrong Username or Email</div>");
+        }
+        if (data === "Success")
+          $(".container").prepend("<div class='alert alert-success alert-dismissable fade in'>\
+          <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>\
+          <strong>Success </strong>we've just sent you an email to reset your password</div>");
+        console.log(data);
+      }
+    });
+});
+
+$('#resetForm').submit((ev)=>{
+  var formdata = $('#resetForm').serializeArray();
+  var data = {};
+  $(formdata).each(function(index, obj){
+    data[obj.name] = obj.value;
+  });
+  ev.preventDefault();
+    $.ajax({
+      type: 'POST',
+      data: JSON.stringify(data),
+      contentType: 'application/json',
+      url: 'http://localhost:3030/login/newPassword',
+      success: function(data) {
+        if (data === "Error")
+        {
+          $(".container").prepend("<div class='alert alert-danger alert-dismissable fade in'>\
+          <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>\
+          <strong>Error</strong></div>");
+        }
+        if (data === "Wrong Password")
+        {
+          $(".container").prepend("<div class='alert alert-danger alert-dismissable fade in'>\
+          <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>\
+          <strong>Error</strong> The two fields must be the same</div>");
         }
         if (data === "Success")
           $(location).attr('href', "http://localhost:3030/");

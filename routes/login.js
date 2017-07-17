@@ -1,6 +1,6 @@
-var express  = require('express'),
-    router   = express.Router();
+var sendmail = require('sendmail')();
 
+//// LOGIN FORM + POST ////
 router.get('/', (req, res)=>{
   res.render('login/index', {title: 'login'});
 });
@@ -23,5 +23,58 @@ router.post('/', (req, res)=>{
           res.send("Error");
       });
 });
+//// LOGIN FORM + POST ////
+//// PASSWORD LOST ////
+
+router.get('/lost', (req, res)=>{
+  res.render('login/lost', {title: 'password lost'});
+});
+
+router.post('/lost', (req, res)=>{
+  var username  = xss(req.body.username),
+      mail      = xss(req.body.mail);
+  console.log(req.body);
+  var logCheck = req.app.db.collection("users").find({username: username, mail: mail}, {"_id": 1, "token": 1}).limit(1);
+  logCheck.toArray().then((logCheck)=>{
+    if (logCheck.length > 0)
+    {
+        sendmail({
+          from: 'no-reply@matcha.com',
+          to: mail,
+          subject: "Lost Password",
+          html: "Hello " + username + " follow this link to reset your password : http://localhost:3030/login/lost/" + logCheck[0]._id + "/" + logCheck[0].token
+        }, (err, reply)=>{
+          if (err)(console.log(err))
+          if (reply){res.send("Success")}
+        });
+    }
+    else
+      res.send("Error")
+  });
+});
+
+router.get('/lost/:id/:token', (req, res)=>{
+  res.render('login/reset', {title: 'reset password', id: req.params.id, token: req.params.token});
+});
+
+router.post('/newPassword', (req, res)=>{
+  if (req.body.password === req.body.confirm)
+  {
+    var password = crypto.createHash('md5').update(req.body.password).digest("hex"),
+        newToken = crypto.randomBytes(64).toString('hex');
+    req.app.db.collection("users").findOneAndUpdate({_id: req.body.id, token: req.body.token},
+                                          {$set:{password: password, token: newToken}},
+                                          (err, result)=>{
+                                              if (err){res.send("Error");}
+                                              else {
+                                                console.log(result);
+                                                res.send("Error");
+                                              }
+                                          });
+  }
+  else
+    res.send("Wrong Password");
+});
+//// PASSWORD LOST ////
 
 module.exports = router;

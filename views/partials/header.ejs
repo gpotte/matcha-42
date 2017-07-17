@@ -31,6 +31,9 @@
               <li><a href="#">rand</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
+              <%if (locals.user){%>
+                <li><a href="/logout">logout</a></li>
+              <%}%>
             </ul>
           </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->

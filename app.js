@@ -1,13 +1,14 @@
-express      = require('express'),
-router       = express.Router(),
-colors       = require('colors'),
-app          = express(),
-http         = require('http').Server(app),
-bodyParser   = require('body-parser'),
-cookieParser = require('cookie-parser'),
-MongoClient  = require("mongodb").MongoClient,
-crypto       = require('crypto'),
-xss          = require('xss');
+methodOverride  = require('method-override'),
+express         = require('express'),
+router          = express.Router(),
+colors          = require('colors'),
+app             = express(),
+http            = require('http').Server(app),
+bodyParser      = require('body-parser'),
+cookieParser    = require('cookie-parser'),
+MongoClient     = require("mongodb").MongoClient,
+crypto          = require('crypto'),
+xss             = require('xss');
 
 var port         = process.env.PORT || 3030,
     middleware   = require(__dirname + "/functions/middleware.js");
@@ -33,14 +34,19 @@ app.get('/', (req, res)=>{
 });
 
 app.get('/home', middleware.loggedIn(), (req, res)=>{
-    res.send('index');
+    res.render('index', {title: "home", user: req.cookies.user});
+});
+
+app.get('/logout', (req, res)=>{
+  res.clearCookie("user");
+  res.redirect("/");
 });
 
 ///////////////////////EXPRESS ROUTER//////////////////////////////////////
-var loginRoute  = require(process.env.PWD + '/routes/login');
-    userRoute   = require('./routes/user');
+var loginRoute  = require(process.env.PWD + '/routes/login'),
+    userRoute   = require(process.env.PWD + '/routes/user');
 
-//Login routes (form + post)
+//Login routes (form + post + lost password)
 app.use('/login', loginRoute);
 //User Routes (create, edit, access user)
 app.use('/user', userRoute);
