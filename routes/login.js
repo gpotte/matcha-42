@@ -1,4 +1,5 @@
 var sendmail = require('sendmail')();
+var ObjectId = require('mongodb').ObjectID;
 
 //// LOGIN FORM + POST ////
 router.get('/', (req, res)=>{
@@ -62,13 +63,12 @@ router.post('/newPassword', (req, res)=>{
   {
     var password = crypto.createHash('md5').update(req.body.password).digest("hex"),
         newToken = crypto.randomBytes(64).toString('hex');
-    req.app.db.collection("users").findOneAndUpdate({_id: req.body.id, token: req.body.token},
-                                          {$set:{password: password, token: newToken}},
+    req.app.db.collection("users").findOneAndUpdate({_id: ObjectId(req.body.id), token: req.body.token},
+                                          {$set: {password: password, token: newToken}},
                                           (err, result)=>{
                                               if (err){res.send("Error");}
-                                              else {
-                                                console.log(result);
-                                                res.send("Error");
+                                              else if(result.lastErrorObject.n > 0){
+                                                res.send("Success");
                                               }
                                           });
   }
