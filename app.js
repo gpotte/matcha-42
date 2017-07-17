@@ -8,10 +8,9 @@ bodyParser      = require('body-parser'),
 cookieParser    = require('cookie-parser'),
 MongoClient     = require("mongodb").MongoClient,
 crypto          = require('crypto'),
-xss             = require('xss');
-
-var port         = process.env.PORT || 3030,
-    middleware   = require(__dirname + "/functions/middleware.js");
+xss             = require('xss')
+port         = process.env.PORT || 3030,
+middleware   = require(__dirname + "/functions/middleware.js");
 
 app.use(cookieParser('your secret here'));
 app.use(bodyParser.json());
@@ -44,12 +43,15 @@ app.get('/logout', (req, res)=>{
 
 ///////////////////////EXPRESS ROUTER//////////////////////////////////////
 var loginRoute  = require(process.env.PWD + '/routes/login'),
-    userRoute   = require(process.env.PWD + '/routes/user');
+    userRoute   = require(process.env.PWD + '/routes/user'),
+    msgRoute    = require('./routes/messages');
 
-//Login routes (form + post + lost password)
+//LOGIN ROUTES (form + post + lost password)
 app.use('/login', loginRoute);
-//User Routes (create, edit, access user)
+//USER ROUTES (create, edit, access user)
 app.use('/user', userRoute);
+//MESSAGE ROUTES
+app.use('/msg', msgRoute);
 ///////////////////////EXPRESS ROUTER//////////////////////////////////////
 
 app.get('*', (req, res)=>{
