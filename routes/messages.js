@@ -1,4 +1,4 @@
-router.get('/tchat', middleware.loggedIn(), (req, res)=>{
+router.get('/messages/tchat', middleware.loggedIn(), (req, res)=>{
   res.render('message/tchat', {title: 'messages', user: req.cookies.user});
 });
 

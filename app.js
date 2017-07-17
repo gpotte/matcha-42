@@ -8,9 +8,10 @@ bodyParser      = require('body-parser'),
 cookieParser    = require('cookie-parser'),
 MongoClient     = require("mongodb").MongoClient,
 crypto          = require('crypto'),
-xss             = require('xss')
-port         = process.env.PORT || 3030,
-middleware   = require(__dirname + "/functions/middleware.js");
+xss             = require('xss'),
+io              = require('socket.io')(http);
+port            = process.env.PORT || 3030,
+middleware      = require(__dirname + "/functions/middleware.js");
 
 app.use(cookieParser('your secret here'));
 app.use(bodyParser.json());
@@ -44,18 +45,27 @@ app.get('/logout', (req, res)=>{
 ///////////////////////EXPRESS ROUTER//////////////////////////////////////
 var loginRoute  = require(process.env.PWD + '/routes/login'),
     userRoute   = require(process.env.PWD + '/routes/user'),
-    msgRoute    = require('./routes/messages');
+    msgRoute    = require(process.env.PWD + '/routes/messages');
 
 //LOGIN ROUTES (form + post + lost password)
-app.use('/login', loginRoute);
+app.use('/', loginRoute);
 //USER ROUTES (create, edit, access user)
-app.use('/user', userRoute);
+app.use('/', userRoute);
 //MESSAGE ROUTES
-app.use('/msg', msgRoute);
+app.use('/', msgRoute);
 ///////////////////////EXPRESS ROUTER//////////////////////////////////////
 
 app.get('*', (req, res)=>{
   res.render('404', {title: '404'});
+});
+
+io.on('connection', (socket)=>{
+  socket.on('user', (name)=>{
+    socket.pseudo = name;
+  });
+  socket.on('chat message', (msg)=>{
+      io.emit('chat message', {pseudo: socket.pseudo, msg: msg})
+  });
 });
 
 http.listen(port, ()=>{

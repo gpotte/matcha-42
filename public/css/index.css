@@ -35,11 +35,16 @@ h2 small {
   display: block;
 }
 
-.tchat-form {
+#tchatForm {
   position: absolute;
   bottom: 0;
   padding-bottom: 150px;
   padding-right: 15px;
+}
+
+#message {
+  size: 100%;
+  overflow: hidden;
 }
 .footer {
   position: absolute;
@@ -48,4 +53,8 @@ h2 small {
   /* Set the fixed height of the footer here */
   height: 60px;
   background-color: #f5f5f5;
+}
+
+.list-group-item.disabled, .list-group-item.disabled:focus, .list-group-item.disabled:hover{
+  color: #333;
 }

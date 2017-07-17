@@ -1,13 +1,39 @@
 <% include ../partials/header %>
 <div class=container>
-  <ul id="message"></ul>
-  <form class="tchat-form">
+  <ul clas="list-group" id="message"></ul>
+  <form id="tchatForm">
     <div class="input-group">
-      <input id="m" type="text" autocomplete="off" class="form-control" required=true>
+      <input id="tchatInput" type="text" autocomplete="off" class="form-control" required=true>
       <span class="input-group-btn">
         <button class="btn btn-default btn-primary">Send</button>
       </span>
     </div>
   </form>
 </div>
+<script src="/socket.io/socket.io.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+<script>
+  $(function () {
+    var socket = io();
+    $(document).ready(function(){
+      socket.emit('user', "<%=user.username%>");
+    });
+    $('#tchatForm').submit(function(){
+      socket.emit('chat message', $('#tchatInput').val());
+      $('#tchatInput').val('');
+      return false;
+    });
+    socket.on('chat message', (msg)=>{
+      var now = new Date(Date.now());
+      if (msg.pseudo === "<%=user.username%>")
+        $('#message').append("<li class='list-group-item'><strong>"+
+                              msg.pseudo + " </strong>"+ msg.msg +
+                              "<span class='badge'>" + now.getHours() + ":" + now.getMinutes() + "</span></li>");
+      else
+        $('#message').append("<li class='list-group-item disabled'><strong>"+
+                              msg.pseudo + " </strong>"+ msg.msg +
+                              "<span class='badge'>" + now.getHours() + ":" + now.getMinutes() + "</span></li>");
+    });
+  });
+</script>
 <% include ../partials/footer %>

@@ -1,9 +1,9 @@
 ////CREATE A NEW USER ///////
-router.get('/new', (req, res)=>{
+router.get('/user/new', (req, res)=>{
   res.render('user/new', {title: 'signin'});
 });
 
-router.post('/new', (req, res)=>{
+router.post('/user/new', (req, res)=>{
   var username  = xss(req.body.username),
       mail      = xss(req.body.mail),
       name      = xss(req.body.name),

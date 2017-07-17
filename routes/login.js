@@ -2,11 +2,11 @@ var sendmail = require('sendmail')();
 var ObjectId = require('mongodb').ObjectID;
 
 //// LOGIN FORM + POST ////
-router.get('/', (req, res)=>{
+router.get('/login', (req, res)=>{
   res.render('login/index', {title: 'login'});
 });
 
-router.post('/', (req, res)=>{
+router.post('/login', (req, res)=>{
   var username  = xss(req.body.username),
       password  = crypto.createHash('md5').update(req.body.password).digest("hex"),
       userObject = {
@@ -27,11 +27,11 @@ router.post('/', (req, res)=>{
 //// LOGIN FORM + POST ////
 //// PASSWORD LOST ////
 
-router.get('/lost', (req, res)=>{
+router.get('/login/lost', (req, res)=>{
   res.render('login/lost', {title: 'password lost'});
 });
 
-router.post('/lost', (req, res)=>{
+router.post('/login/lost', (req, res)=>{
   var username  = xss(req.body.username),
       mail      = xss(req.body.mail);
   console.log(req.body);
@@ -54,7 +54,7 @@ router.post('/lost', (req, res)=>{
   });
 });
 
-router.get('/lost/:id/:token', (req, res)=>{
+router.get('/login/lost/:id/:token', (req, res)=>{
   res.render('login/reset', {title: 'reset password', id: req.params.id, token: req.params.token});
 });
 
