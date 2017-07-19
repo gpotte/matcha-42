@@ -40,6 +40,18 @@
 </div>
 <h3><strong> <%=user.firstName%> </strong> <%=user.name%> </h3><br>
 <p><%=user.bio%></p>
-
+<div class="jumbotron">
+  <h4>interests:</h4>
+  <% if ((user.sex === "male" && user.pref ==="hetero") || (user.sex === "female" && user.pref === "homo")){%>
+    <i class="fa fa-venus" aria-hidden="true"></i>
+  <%} else {%>
+    <i class="fa fa-mars" aria-hidden="true"></i>
+  <%}if (user.pref === "bi"){%>
+    <i class="fa fa-venus" aria-hidden="true"></i>
+  <%} if (user.tags) {%>
+  <%  for (tag of user.tags){%>
+    <a href="/categories/<%=tag%>">#<%=tag%></a>
+  <%}}%>
+</div>
 
 <% include ../partials/footer %>

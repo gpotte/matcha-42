@@ -10,6 +10,7 @@ router.post('/user/new', (req, res)=>{
       firstName = xss(req.body.firstname),
       password  = crypto.createHash('md5').update(req.body.password).digest("hex"),
       token     = crypto.randomBytes(64).toString('hex'),
+      photo     = req.body.sex === "male" ? "https://www.smashingmagazine.com/wp-content/uploads/2015/06/10-dithering-opt.jpg" : "http://fr.cdn.v5.futura-sciences.com/buildsv6/images/mediumoriginal/7/2/6/726a071f66_56630_250612-screen-rapace8-1610-diapo.jpg",
       userObject = {
         username: username,
         mail: mail,
@@ -17,8 +18,9 @@ router.post('/user/new', (req, res)=>{
         firstName: firstName,
         password: password,
         token: token,
-        photo: ["https://www.smashingmagazine.com/wp-content/uploads/2015/06/10-dithering-opt.jpg",
-                "https://www.smashingmagazine.com/wp-content/uploads/2015/06/10-dithering-opt.jpg"]
+        photo: [photo],
+        pref: req.body.pref,
+        sex: req.body.sex
       };
 
       console.log(userObject);
@@ -56,7 +58,6 @@ router.get('/user/:username', middleware.loggedIn(), (req, res)=>{
     if (user.length > 0)
     {
         var userObject = user[0];
-        console.log(userObject);
         res.render('user/profile', {title: username, user: userObject});
     }
     else
