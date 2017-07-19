@@ -7,7 +7,7 @@ router.post('/user/new', (req, res)=>{
   var username  = xss(req.body.username),
       mail      = xss(req.body.mail),
       name      = xss(req.body.name),
-      firstName = xss(req.body.firstName),
+      firstName = xss(req.body.firstname),
       password  = crypto.createHash('md5').update(req.body.password).digest("hex"),
       token     = crypto.randomBytes(64).toString('hex'),
       userObject = {
@@ -16,9 +16,12 @@ router.post('/user/new', (req, res)=>{
         name: name,
         firstName: firstName,
         password: password,
-        token: token
+        token: token,
+        photo: ["https://www.smashingmagazine.com/wp-content/uploads/2015/06/10-dithering-opt.jpg",
+                "https://www.smashingmagazine.com/wp-content/uploads/2015/06/10-dithering-opt.jpg"]
       };
 
+      console.log(userObject);
       var checkExist = req.app.db.collection("users").find({username: username}, {"_id": 1}).limit(1);
       checkExist.toArray().then((checkExist)=>{
         if (checkExist.length > 0)
@@ -53,6 +56,7 @@ router.get('/user/:username', middleware.loggedIn(), (req, res)=>{
     if (user.length > 0)
     {
         var userObject = user[0];
+        console.log(userObject);
         res.render('user/profile', {title: username, user: userObject});
     }
     else

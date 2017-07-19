@@ -2,12 +2,11 @@
   text-align: center;
 }
 
-.user-photo {
-  max-width: 350px;
-  max-height: 480px;
+.carousel{
+  margin: auto;
+
 }
 
-.user-photo-small {
-  max-width: 185px;
-  max-height: 240px;
+.carousel-control.left, .carousel-control.right {
+  background-image: none;
 }
