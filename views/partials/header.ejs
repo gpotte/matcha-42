@@ -32,6 +32,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
               <%if (locals.user){%>
+                <li><a href="/user/<%=user.username%>"><%=user.username%></a></li>
                 <li><a href="/messages/tchat">messages</a></li>
                 <li><a href="/logout">logout</a></li>
               <%}%>

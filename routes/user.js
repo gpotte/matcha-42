@@ -46,7 +46,19 @@ router.post('/user/new', (req, res)=>{
 ////CREATE A NEW USER ///////
 
 ////ACCESS USER PAGE///////
-router.get('/user/:username')
+router.get('/user/:username', middleware.loggedIn(), (req, res)=>{
+  var username = req.params.username;
+  var user = req.app.db.collection("users").find({username: username}).limit(1);
+  user.toArray().then((user)=>{
+    if (user.length > 0)
+    {
+        var userObject = user[0];
+        res.render('user/profile', {title: username, user: userObject});
+    }
+    else
+      res.redirect('/404');
+  });
+});
 ////ACCESS USER PAGE///////
 
 ////EDIT USER INFOS///////

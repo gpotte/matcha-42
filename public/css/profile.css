@@ -1,0 +1,13 @@
+#username {
+  text-align: center;
+}
+
+.user-photo {
+  max-width: 350px;
+  max-height: 480px;
+}
+
+.user-photo-small {
+  max-width: 185px;
+  max-height: 240px;
+}
