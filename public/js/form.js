@@ -75,8 +75,9 @@ $('#logInForm').submit((ev)=>{
           <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>\
           <strong>Error</strong> Wrong Login or Password</div>");
         }
-        if (data === "Success")
+        if (data === "Success"){
           $(location).attr('href', "http://localhost:3030/");
+        }
         console.log(data);
       }
     });

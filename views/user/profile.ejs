@@ -1,5 +1,6 @@
 <% include ../partials/header %>
 <link rel="stylesheet" type="text/css" href="/css/profile.css" />
+<div class="container">
 <%if (profile.username === user.username){%>
   <button id="settings" class="btn btn-default btn-lg btn-warning" data-toggle="modal" data-target="#editModal">
     <i class="fa fa-cog" aria-hidden="true"></i>
@@ -38,4 +39,5 @@
   <%}}%>
 </div>
 <script src="/js/profile.js"></script>
+</div>
 <% include ../partials/footer %>

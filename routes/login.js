@@ -58,7 +58,7 @@ router.get('/login/lost/:id/:token', (req, res)=>{
   res.render('login/reset', {title: 'reset password', id: req.params.id, token: req.params.token});
 });
 
-router.post('/newPassword', (req, res)=>{
+router.post('/login/newPassword', (req, res)=>{
   if (req.body.password === req.body.confirm)
   {
     var password = crypto.createHash('md5').update(req.body.password).digest("hex"),
