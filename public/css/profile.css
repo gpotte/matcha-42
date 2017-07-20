@@ -2,6 +2,14 @@
   text-align: center;
 }
 
+#settings {
+    float: right;
+}
+
+.likeBtn {
+  float: right;  
+}
+
 .carousel{
   margin: auto;
 

@@ -39,7 +39,7 @@ router.post('/user/new', (req, res)=>{
               req.app.db.collection("users").insert(userObject, (err, result)=>{
                 if (err){res.send("Error")}
                 else {
-                  res.cookie("user", {username: result.ops[0].username, hash: result.ops[0]._id});
+                  res.cookie("user", {username: result.ops[0].username, hash: result.ops[0]._id, photo: result.ops[0].photo[0]});
                   res.send("Success")
                 }
               });
@@ -53,12 +53,12 @@ router.post('/user/new', (req, res)=>{
 ////ACCESS USER PAGE///////
 router.get('/user/:username', middleware.loggedIn(), (req, res)=>{
   var username = req.params.username;
-  var user = req.app.db.collection("users").find({username: username}).limit(1);
-  user.toArray().then((user)=>{
-    if (user.length > 0)
+  var profile = req.app.db.collection("users").find({username: username}).limit(1);
+  profile.toArray().then((profile)=>{
+    if (profile.length > 0)
     {
-        var userObject = user[0];
-        res.render('user/profile', {title: username, user: userObject});
+        var profileObject = profile[0];
+        res.render('user/profile', {title: username, user: req.cookies.user, profile: profileObject});
     }
     else
       res.redirect('/404');

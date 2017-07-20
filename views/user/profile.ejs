@@ -1,57 +1,41 @@
 <% include ../partials/header %>
 <link rel="stylesheet" type="text/css" href="/css/profile.css" />
-<h1 id="username"><%=user.username%>
-  <%if (user.sex === "male"){%> <i class="fa fa-mars" aria-hidden="true"></i>
-  <%} else if (user.sex === "female"){%>
+<%if (profile.username === user.username){%>
+  <button id="settings" class="btn btn-default btn-lg btn-warning" data-toggle="modal" data-target="#editModal">
+    <i class="fa fa-cog" aria-hidden="true"></i>
+  </button>
+  <% include ../partials/editProfileModal%>
+<%} else if (user.likes && user.likes.includes(profile.username)){%>
+  <button id="liked" class="btn btn-default btn-lg btn-success likeBtn">
+    <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+  </button>
+<%} else {%>
+  <button id="notLiked" class="btn btn-default btn-lg btn-danger likeBtn">
+    <i class="fa fa-thumbs-down" aria-hidden="true"></i>
+  </button>
+<%}%>
+<h1 id="username"><%=profile.username%>
+  <%if (profile.sex === "male"){%> <i class="fa fa-mars" aria-hidden="true"></i>
+  <%} else if (profile.sex === "female"){%>
     <i class="fa fa-venus" aria-hidden="true"></i><%}%>
 </h1>
-<div class="row">
-  <div class="col-xs-3"></div>
-<% if (user.photo && user.photo.length > 0) { %>
-<div id="userCarousel" class="carousel slide col-xs-6" data-ride="carousel">
-  <ol class="carousel-indicators">
-    <%for (var i = 0; i < user.photo.length; i++) {%>
-    <li data-target"#userCarousel" data-slide-to="<%=i%>" <%if (i === 0){%> class=active <%}%>></li>
-    <%}%>
-  </ol>
 
-  <!-- Wrapper for slides -->
+<% include ../partials/profileCarousel %>
 
-  <div class="carousel-inner">
-    <% for (i in user.photo) { %>
-      <% if (i == 0) {%>
-        <div class="item active"><img src="<%=user.photo[i]%>"></img></div>
-      <% } else {%>
-        <div class="item"><img src="<%=user.photo[i]%>"></img></div>
-    <%}}%>
-  </div>
-  <!-- Left and right controls -->
-  <a class="left carousel-control" href="#userCarousel" data-slide="prev">
-    <span class="glyphicon glyphicon-chevron-left"></span>
-    <span class="sr-only">Previous</span>
-  </a>
-  <a class="right carousel-control" href="#userCarousel" data-slide="next">
-    <span class="glyphicon glyphicon-chevron-right"></span>
-    <span class="sr-only">Next</span>
-  </a>
-</div>
-<%}%>
-<div class="col-xs-3"></div>
-</div>
-<h3><strong> <%=user.firstName%> </strong> <%=user.name%> </h3><br>
-<p><%=user.bio%></p>
+<h3><strong> <%=profile.firstName%> </strong> <%=profile.name%> </h3><br>
+<p><%=profile.bio%></p>
 <div class="jumbotron">
   <h4>interests:</h4>
-  <% if ((user.sex === "male" && user.pref ==="hetero") || (user.sex === "female" && user.pref === "homo")){%>
+  <% if ((profile.sex === "male" && profile.pref ==="hetero") || (profile.sex === "female" && profile.pref === "homo")){%>
     <i class="fa fa-venus" aria-hidden="true"></i>
   <%} else {%>
     <i class="fa fa-mars" aria-hidden="true"></i>
-  <%}if (user.pref === "bi"){%>
+  <%}if (profile.pref === "bi"){%>
     <i class="fa fa-venus" aria-hidden="true"></i>
-  <%} if (user.tags) {%>
-  <%  for (tag of user.tags){%>
+  <%} if (profile.tags) {%>
+  <%  for (tag of profile.tags){%>
     <a href="/categories/<%=tag%>">#<%=tag%></a>
   <%}}%>
 </div>
-
+<script src="/js/profile.js"></script>
 <% include ../partials/footer %>

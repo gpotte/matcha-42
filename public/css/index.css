@@ -23,14 +23,22 @@ body {
   color: tomato;
 }
 
-.jumbotron h2{
+.jumbotronWithForm {
   text-align: center;
+}
+
+.jumbotron h2 {
   color: tomato;
+
 }
 
 h2 small {
   padding-top: 0;
   font-size: 50%;
+}
+
+.form-control {
+  margin-bottom: 5px;
 }
 
 .inactive {
@@ -52,6 +60,7 @@ h2 small {
   size: 100%;
   overflow: hidden;
 }
+
 .footer {
   position: absolute;
   bottom: 0;
@@ -63,4 +72,10 @@ h2 small {
 
 .list-group-item.disabled, .list-group-item.disabled:focus, .list-group-item.disabled:hover{
   color: #333;
+}
+
+#profilePic {
+  width: 25px;
+  height: 25px;
+  border-radius: 25px;
 }

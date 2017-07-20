@@ -11,6 +11,7 @@ crypto          = require('crypto'),
 xss             = require('xss'),
 io              = require('socket.io')(http);
 port            = process.env.PORT || 3030,
+where           = require('node-where'),
 middleware      = require(__dirname + "/functions/middleware.js");
 
 app.use(cookieParser('your secret here'));
@@ -18,6 +19,15 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'));
 app.set("view engine", "ejs");
+
+///GEOLOCATIN MIDDLEWARE///
+app.use(function(req, res, next) {
+  where.is((req.headers['x-forwarded-for'] || '').split(',')[0], function(err, result) {
+    req.geoip = result;
+    next();
+  });
+});
+///GEOLOCATIN MIDDLEWARE///
 
 MongoClient.connect("mongodb://localhost/matcha", function(error, db) {
     if (error) console.log("\x1b[41m%s\x1b[0m", error)
@@ -29,7 +39,8 @@ MongoClient.connect("mongodb://localhost/matcha", function(error, db) {
 });
 
 app.get('/', (req, res)=>{
-    // res.clearCookie("user")
+    console.log(req.geoip);
+    console.log((req.headers['x-forwarded-for'] || '').split(',')[0]);
     res.redirect('/home');
 });
 

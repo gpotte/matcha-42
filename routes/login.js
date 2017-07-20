@@ -13,11 +13,11 @@ router.post('/login', (req, res)=>{
         username: username,
         password: password
       };
-      var logCheck = req.app.db.collection("users").find(userObject, {"_id": 1}).limit(1);
+      var logCheck = req.app.db.collection("users").find(userObject, {"_id": 1, "photo": 1}).limit(1);
       logCheck.toArray().then((logCheck)=>{
         if (logCheck.length > 0)
         {
-          res.cookie("user", {username: username, hash: logCheck[0]._id});
+          res.cookie("user", {username: username, hash: logCheck[0]._id, photo: logCheck[0].photo[0]});
           res.send("Success");
         }
         else

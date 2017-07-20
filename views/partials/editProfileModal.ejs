@@ -1,0 +1,45 @@
+<!-- MODAL OVERLAY-->
+  <div class="modal fade" id="editModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Edit Profile</h4>
+        </div>
+        <div class="modal-body">
+          <form id="editForm">
+          <label>FirstName</label>
+          <input type=text value="<%=profile.firstName%>" name="firstName" class="form-control" required><br>
+          <label>Name</label>
+          <input type=text value="<%=profile.name%>" name="name" class="form-control" required>
+          <label>E-mail</label>
+          <input type=text value="<%=profile.mail%>" name="mail" class="form-control" required>
+          <label>Bio</label>
+          <input type=text value="<%=profile.bio%>" name="bio" class="form-control" required>
+          <select name="sex" required>
+            <%if (profile.sex === "male"){%>
+              <option value="male">Male</option><option value="female">Female</option>
+            <%} else { %>
+              <option value="female">Female</option><option value="male">Male</option>
+            <%}%>
+          </select>
+          <select name="pref" required>
+            <%if (profile.pref === "bi"){%>
+              <option value="bi">bi</option><option value="hetero">hetero</option><option value="homo">homo</option>
+            <%} else if (profile.pref === "homo"){%>
+              <option value="homo">homo</option><option value="hetero">hetero</option><option value="bi">bi</option>
+            <%} else { %>
+              <option value="hetero">hetero</option><option value="homo">homo</option><option value="bi">bi</option>
+            <%}%>
+          </select>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <input type="submit" class="btn btn-primary"></button>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- MODAL OVERLAY-->
