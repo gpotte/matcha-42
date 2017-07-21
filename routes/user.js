@@ -67,8 +67,26 @@ router.get('/user/:username', middleware.loggedIn(), (req, res)=>{
 ////ACCESS USER PAGE///////
 
 ////EDIT USER INFOS///////
-router.get('/user/edit/:username')
-router.patch('/user/:username')
+router.post('/user/edit', middleware.loggedIn(), (req, res)=>{
+  var userObject = {
+    firstname : xss(req.body.firstName),
+    name      : xss(req.body.name),
+    mail      : xss(req.body.mail),
+    bio       : xss(req.body.bio),
+    sex       : xss(req.body.sex),
+    pref      : xss(req.body.pref)
+  },
+  currentUser = {
+    username  : req.cookies.user.username,
+    _id       : ObjectId(req.cookies.user.hash)
+  }
+  req.app.db.collection("users").findOneAndUpdate(currentUser, {$set: userObject}, (err, result)=>{
+    if (err){res.send("Error");}
+    else if(result.lastErrorObject.n > 0){
+      res.send("Success");
+    }
+  });
+});
 ////EDIT USER INFOS///////
 
 module.exports = router;

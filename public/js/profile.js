@@ -10,13 +10,13 @@ $(".likeBtn").click(()=>{
   $(".likeBtn i").toggleClass("fa-thumbs-down");
 });
 
-$("#editForm").submit(()=>{
+$("#editForm").submit((ev)=>{
+  ev.preventDefault();
   var formdata = $('#editForm').serializeArray();
   var data = {};
   $(formdata).each(function(index, obj){
     data[obj.name] = obj.value;
   });
-  ev.preventDefault();
     $.ajax({
       type: 'POST',
       data: JSON.stringify(data),

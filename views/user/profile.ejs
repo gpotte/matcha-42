@@ -24,7 +24,7 @@
 <% include ../partials/profileCarousel %>
 
 <h3><strong> <%=profile.firstName%> </strong> <%=profile.name%> </h3><br>
-<p><%=profile.bio%></p>
+<h4><%=profile.bio%></h4>
 <div class="jumbotron">
   <h4>interests:</h4>
   <% if ((profile.sex === "male" && profile.pref ==="hetero") || (profile.sex === "female" && profile.pref === "homo")){%>

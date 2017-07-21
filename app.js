@@ -12,6 +12,7 @@ xss             = require('xss'),
 io              = require('socket.io')(http);
 port            = process.env.PORT || 3030,
 where           = require('node-where'),
+ObjectId        = require('mongodb').ObjectID;
 middleware      = require(__dirname + "/functions/middleware.js");
 
 app.use(cookieParser('your secret here'));

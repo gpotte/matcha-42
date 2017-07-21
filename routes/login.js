@@ -1,5 +1,4 @@
 var sendmail = require('sendmail')();
-var ObjectId = require('mongodb').ObjectID;
 
 //// LOGIN FORM + POST ////
 router.get('/login', (req, res)=>{
