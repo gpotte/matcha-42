@@ -87,6 +87,9 @@ router.post('/user/edit', middleware.loggedIn(), (req, res)=>{
     }
   });
 });
+
+router.post('/user/edit/photo', middleware.loggedIn(), (req, res)=>{
+});
 ////EDIT USER INFOS///////
 
 module.exports = router;
