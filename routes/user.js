@@ -79,7 +79,7 @@ router.post('/user/edit', middleware.loggedIn(), (req, res)=>{
   currentUser = {
     username  : req.cookies.user.username,
     _id       : ObjectId(req.cookies.user.hash)
-  }
+  };
   req.app.db.collection("users").findOneAndUpdate(currentUser, {$set: userObject}, (err, result)=>{
     if (err){res.send("Error");}
     else if(result.lastErrorObject.n > 0){
@@ -89,6 +89,25 @@ router.post('/user/edit', middleware.loggedIn(), (req, res)=>{
 });
 
 router.post('/user/edit/photo', middleware.loggedIn(), (req, res)=>{
+  var photo       = [xss(req.body.photo1)],
+      currentUser = {
+        username  : req.cookies.user.username,
+        _id       : ObjectId(req.cookies.user.hash)
+      };
+    if (xss(req.body.photo2) != '')
+      photo.push(xss(req.body.photo2));
+    if (xss(req.body.photo3) != '')
+      photo.push(xss(req.body.photo3));
+    if (xss(req.body.photo4) != '')
+      photo.push(xss(req.body.photo4));
+    if (xss(req.body.photo5) != '')
+      photo.push(xss(req.body.photo5));
+    req.app.db.collection("users").findOneAndUpdate(currentUser, {$set: {photo: photo}}, (err, result)=>{
+    if (err){res.send("Error");}
+    else if(result.lastErrorObject.n > 0){
+      res.send("Success");
+    }
+  });
 });
 ////EDIT USER INFOS///////
 
