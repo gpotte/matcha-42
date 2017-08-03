@@ -34,14 +34,20 @@
     <i class="fa fa-venus" aria-hidden="true"></i>
   <%} if (profile.tags) {%>
   <%  for (tag of profile.tags){%>
-    <span id="<%=tag%>" class="label label-primary">#<%=tag%>
+    <span id="<%=tag.id%>" class="tagList label label-primary">#<%=tag.tag%>
       <button class="neutral tag-close"><span aria-hidden="true">&times;</span></button>
     </span>
   <%}}%>
+  <%if (profile.username === user.username){%>
+    <span id="newTag" class="tagList label label-primary" data-toggle="modal" data-target="#tagModal">
+      <button class="neutral">Add a tag</button>
+    </span>
+  <%}%>
 </div>
 <%if (profile.username === user.username){%>
   <% include ../partials/editPhotoModal %>
   <% include ../partials/editProfileModal%>
+  <% include ../partials/tagModal %>
 <%}%>
 <script src="/js/profile.js"></script>
 </div>

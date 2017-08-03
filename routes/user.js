@@ -11,7 +11,6 @@ router.post('/user/new', (req, res)=>{
       password  = crypto.createHash('md5').update(req.body.password).digest("hex"),
       token     = crypto.randomBytes(64).toString('hex'),
       photo     = req.body.sex === "male" ? "https://www.smashingmagazine.com/wp-content/uploads/2015/06/10-dithering-opt.jpg" : "http://fr.cdn.v5.futura-sciences.com/buildsv6/images/mediumoriginal/7/2/6/726a071f66_56630_250612-screen-rapace8-1610-diapo.jpg",
-      tags      = ["test", "test1"],
       userObject = {
         username: username,
         mail: mail,
@@ -20,7 +19,6 @@ router.post('/user/new', (req, res)=>{
         password: password,
         token: token,
         photo: [photo],
-        tags: tags,
         pref: req.body.pref,
         sex: req.body.sex
       };
@@ -111,6 +109,40 @@ router.post('/user/edit/photo', middleware.loggedIn(), (req, res)=>{
     }
   });
 });
+
+router.post('/user/add/tag', middleware.loggedIn(), (req, res)=>{
+  var tag = req.body.tag,
+  currentUser = {
+    username  : req.cookies.user.username,
+    _id       : ObjectId(req.cookies.user.hash)
+  },
+  checkExist = req.app.db.collection("tags").find({tag: tag}, {"_id": 1}).limit(1);
+  checkExist.toArray().then((checkExist)=>{
+    if (checkExist.length > 0){
+      req.app.db.collection("users").update(currentUser, { $addToSet: {tags: {id: checkExist[0]._id, tag: tag}}}, (err, result)=>{
+        if (err)
+          res.send("Error");
+        else
+          res.send("Success");
+      });
+    }
+    else {
+      req.app.db.collection("tags").insert({tag: tag}, (err, result)=>{
+          if (err){res.send("Error")}
+          else {
+            req.app.db.collection("users").update(currentUser, { $addToSet: {tags: {id: result.insertedIds[0], tag: tag}}}, (err, result)=>{
+              if (err)
+                res.send("Error");
+              else
+                res.send("Success");
+            });
+          }
+      });
+    }
+  });
+});
 ////EDIT USER INFOS///////
+
+
 
 module.exports = router;
