@@ -62,3 +62,9 @@ $("#editPhotoForm").submit((ev)=>{
       }
     });
 });
+
+$(".tag-close").click((ev)=>{
+  ev.preventDefault;
+  console.log($(this).parent("span"));
+  $(this).parent().remove();
+});

@@ -7,7 +7,7 @@
 }
 
 .likeBtn {
-  float: right;  
+  float: right;
 }
 
 .carousel{
@@ -17,4 +17,10 @@
 
 .carousel-control.left, .carousel-control.right {
   background-image: none;
+}
+
+.neutral {
+  style: none;
+  border: none;
+  background-color: transparent;
 }

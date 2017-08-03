@@ -11,6 +11,7 @@ router.post('/user/new', (req, res)=>{
       password  = crypto.createHash('md5').update(req.body.password).digest("hex"),
       token     = crypto.randomBytes(64).toString('hex'),
       photo     = req.body.sex === "male" ? "https://www.smashingmagazine.com/wp-content/uploads/2015/06/10-dithering-opt.jpg" : "http://fr.cdn.v5.futura-sciences.com/buildsv6/images/mediumoriginal/7/2/6/726a071f66_56630_250612-screen-rapace8-1610-diapo.jpg",
+      tags      = ["test", "test1"],
       userObject = {
         username: username,
         mail: mail,
@@ -19,6 +20,7 @@ router.post('/user/new', (req, res)=>{
         password: password,
         token: token,
         photo: [photo],
+        tags: tags,
         pref: req.body.pref,
         sex: req.body.sex
       };

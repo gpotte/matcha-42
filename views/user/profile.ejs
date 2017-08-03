@@ -34,7 +34,9 @@
     <i class="fa fa-venus" aria-hidden="true"></i>
   <%} if (profile.tags) {%>
   <%  for (tag of profile.tags){%>
-    <a href="/categories/<%=tag%>">#<%=tag%></a>
+    <span id="<%=tag%>" class="label label-primary">#<%=tag%>
+      <button class="neutral tag-close"><span aria-hidden="true">&times;</span></button>
+    </span>
   <%}}%>
 </div>
 <%if (profile.username === user.username){%>
