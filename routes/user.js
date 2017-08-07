@@ -141,6 +141,21 @@ router.post('/user/add/tag', middleware.loggedIn(), (req, res)=>{
     }
   });
 });
+
+router.post('/user/remove/tag', middleware.loggedIn(), (req, res)=>{
+  var tag = req.body.id,
+  currentUser = {
+    username  : req.cookies.user.username,
+    _id       : ObjectId(req.cookies.user.hash)
+  };
+req.app.db.collection("users").update(currentUser, {$pull: {tags: {id: ObjectId(req.body.id)}}}, (err, result)=>{
+    if (err){res.send("Error")}
+    else {
+      console.log(result.result)
+      res.send("Success")
+    }
+  });
+});
 ////EDIT USER INFOS///////
 
 

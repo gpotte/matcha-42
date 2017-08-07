@@ -35,7 +35,9 @@
   <%} if (profile.tags) {%>
   <%  for (tag of profile.tags){%>
     <span id="<%=tag.id%>" class="tagList label label-primary">#<%=tag.tag%>
-      <button class="neutral tag-close"><span aria-hidden="true">&times;</span></button>
+      <%if (profile.username === user.username){%>
+        <button id="<%=tag.id%>" class="neutral tag-close"><span aria-hidden="true">&times;</span></button>
+      <%}%>
     </span>
   <%}}%>
   <%if (profile.username === user.username){%>

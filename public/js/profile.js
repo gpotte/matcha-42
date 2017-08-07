@@ -64,6 +64,21 @@ $("#editPhotoForm").submit((ev)=>{
 });
 
 $(".tag-close").click((e)=>{
+  $.ajax({
+    type: 'POST',
+    data: JSON.stringify({id: e.currentTarget.id}),
+    contentType: 'application/json',
+    url: 'http://localhost:3030/user/remove/tag',
+    success: function(data) {
+      if (data === "Error")
+      {
+        $(".container").prepend("<div class='alert alert-danger alert-dismissable fade in'>\
+        <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>\
+        <strong>Error</strong> Something went Wrong</div>");
+      }
+      console.log(data);
+    }
+  });
   $(e.currentTarget).parent().remove();
 });
 
