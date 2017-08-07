@@ -20,7 +20,8 @@ router.post('/user/new', (req, res)=>{
         token: token,
         photo: [photo],
         pref: req.body.pref,
-        sex: req.body.sex
+        sex: req.body.sex,
+        fame: 100
       };
 
       console.log(userObject);
@@ -53,11 +54,22 @@ router.post('/user/new', (req, res)=>{
 ////ACCESS USER PAGE///////
 router.get('/user/:username', middleware.loggedIn(), (req, res)=>{
   var username = req.params.username;
+  var currentUser = req.cookies.user.username;
   var profile = req.app.db.collection("users").find({username: username}).limit(1);
   profile.toArray().then((profile)=>{
     if (profile.length > 0)
     {
-        var profileObject = profile[0];
+      var profileObject = profile[0];
+        if (req.cookies.user.username !== username)
+        {
+            var checkVisit = req.app.db.collection("users").find({username: username, 'visitors.name': currentUser});
+            checkVisit.toArray().then((checkVisit)=>{
+              if (checkVisit.length === 0){
+                req.app.db.collection("users").update({username: username}, {notif: 1, fame: (profile.fame - 1)});
+              }
+            });
+            req.app.db.collection("users").update({username: username, 'visitors.name': {$ne: currentUser}}, { $addToSet: {visitors: {name: currentUser, date: Date.now()}}});
+        }
         res.render('user/profile', {title: username, user: req.cookies.user, profile: profileObject});
     }
     else

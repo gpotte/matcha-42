@@ -25,6 +25,7 @@
 <h3><strong> <%=profile.firstName%> </strong> <%=profile.name%> </h3><br>
 <h4><%=profile.bio%></h4>
 <div class="jumbotron">
+  <h5><%=profile.fame%></h5>
   <h4>interests:</h4>
   <% if ((profile.sex === "male" && profile.pref ==="hetero") || (profile.sex === "female" && profile.pref === "homo")){%>
     <i class="fa fa-venus" aria-hidden="true"></i>
