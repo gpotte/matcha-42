@@ -57,7 +57,8 @@ app.get('/logout', (req, res)=>{
 ///////////////////////EXPRESS ROUTER//////////////////////////////////////
 var loginRoute  = require(process.env.PWD + '/routes/login'),
     userRoute   = require(process.env.PWD + '/routes/user'),
-    msgRoute    = require(process.env.PWD + '/routes/messages');
+    msgRoute    = require(process.env.PWD + '/routes/messages'),
+    notifRoute  = require(process.env.PWD + '/routes/notifications');
 
 //LOGIN ROUTES (form + post + lost password)
 app.use('/', loginRoute);
@@ -65,6 +66,8 @@ app.use('/', loginRoute);
 app.use('/', userRoute);
 //MESSAGE ROUTES
 app.use('/', msgRoute);
+//NOTIF ROUTES
+app.use('/', notifRoute);
 ///////////////////////EXPRESS ROUTER//////////////////////////////////////
 
 app.get('*', (req, res)=>{

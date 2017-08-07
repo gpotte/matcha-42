@@ -53,9 +53,9 @@ router.post('/user/new', (req, res)=>{
 
 ////ACCESS USER PAGE///////
 router.get('/user/:username', middleware.loggedIn(), (req, res)=>{
-  var username = req.params.username;
-  var currentUser = req.cookies.user.username;
-  var profile = req.app.db.collection("users").find({username: username}).limit(1);
+  var username    = req.params.username,
+      currentUser = {username: req.cookies.user.username, photo: req.cookies.user.photo},
+      profile     = req.app.db.collection("users").find({username: username}).limit(1);
   profile.toArray().then((profile)=>{
     if (profile.length > 0)
     {
@@ -65,10 +65,10 @@ router.get('/user/:username', middleware.loggedIn(), (req, res)=>{
             var checkVisit = req.app.db.collection("users").find({username: username, 'visitors.name': currentUser});
             checkVisit.toArray().then((checkVisit)=>{
               if (checkVisit.length === 0){
-                req.app.db.collection("users").update({username: username}, {notif: 1, fame: (profile.fame - 1)});
+                req.app.db.collection("users").update({username: username}, {$set: {notif: 1, fame: (profileObject.fame - 1)}});
               }
             });
-            req.app.db.collection("users").update({username: username, 'visitors.name': {$ne: currentUser}}, { $addToSet: {visitors: {name: currentUser, date: Date.now()}}});
+            req.app.db.collection("users").update({username: username, 'visitors.name': {$ne: currentUser.username}}, { $addToSet: {visitors: {name: currentUser.username, date: Date.now(), type: "visit", photo: currentUser.photo}}});
         }
         res.render('user/profile', {title: username, user: req.cookies.user, profile: profileObject});
     }

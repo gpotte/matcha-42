@@ -83,3 +83,12 @@ h2 small {
 label {
   float: left;
 }
+
+#notif-active{
+  color: tomato;
+}
+
+#allNotif{
+  text-align: center;
+  background-color: #eee;
+}

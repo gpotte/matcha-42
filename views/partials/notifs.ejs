@@ -1,0 +1,15 @@
+<% if (locals.newNotifs && locals.newNotifs > 0) {%>
+  <a href="#" class="dropdown-toggle" id="notif-active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Notifications<span class="caret"></span></a>
+<%} else {%>
+  <a href="#" class="dropdown-toggle" id="notif" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Notifications<span class="caret"></span></a>
+<%}%>
+<ul class="dropdown-menu" id="#notif-list">
+  <% if (locals.notifs) {%>
+  <% for (notif of notifs) {%>
+    <%if (notif.type === "visit"){%>
+      <li><a href="/user/<%=notif.name%>"><img id="profilePic" src="<%=notif.photo%>"/><strong> <%=notif.name%></strong> just visited your profile</a></li>
+    <%}%>
+  <%# ADD FOR EVERY TYPE OF NOTIFS %>
+  <%}}%>
+  <li id="allNotif"><small><a href="/notifications">see all notifications</a></small></li>
+</ul>

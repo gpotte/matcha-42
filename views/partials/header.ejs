@@ -31,6 +31,9 @@
               <%if (locals.user){%>
                 <li><a href="/user/<%=user.username%>"><img id="profilePic" src="<%=user.photo%>"/> <%=user.username%></a></li>
                 <li><a href="/messages/tchat">messages</a></li>
+                <li class="dropdown" id="notif-container">
+                  <% include ./notifs %>
+                </li>
                 <li><a href="/logout">logout</a></li>
               <%}%>
             </ul>
