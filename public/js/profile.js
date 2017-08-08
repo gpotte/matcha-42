@@ -8,6 +8,32 @@ $(".likeBtn").click(()=>{
   $(".likeBtn").toggleClass("btn-danger");
   $(".likeBtn i").toggleClass("fa-thumbs-up");
   $(".likeBtn i").toggleClass("fa-thumbs-down");
+  $(".likeBtn").attr("id", ($(".likeBtn").attr('id') === 'liked' ? "notLiked" : "liked"));
+});
+
+//LIKED AND NOTLIKED ARE REVERSED FOR THE CLICK FUNCTION
+
+//LIKING FUNCTION
+$(".container").on("click", "#liked", ()=>{
+    var user = window.location.href.split('/')[4];
+    $.ajax({
+      type: 'POST',
+      data: JSON.stringify({user: user}),
+      contentType: 'application/json',
+      url: 'http://localhost:3030/like',
+      success: function(data) {
+        if (data === "Error")
+        {
+          $(".container").prepend("<div class='alert alert-danger alert-dismissable fade in'>\
+          <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>\
+          <strong>Error</strong> Something went Wrong</div>");
+        }
+      }
+    });
+});
+
+//DISLIKING FUNCTION
+$(".container").on("click", "#notLiked", ()=>{
 });
 
 $("#editForm").submit((ev)=>{

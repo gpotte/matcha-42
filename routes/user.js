@@ -62,7 +62,7 @@ router.get('/user/:username', middleware.loggedIn(), (req, res)=>{
       var profileObject = profile[0];
         if (req.cookies.user.username !== username)
         {
-            var checkVisit = req.app.db.collection("users").find({username: username, 'visitors.name': currentUser});
+            var checkVisit = req.app.db.collection("users").find({username: username, 'visitors.name': currentUser.username});
             checkVisit.toArray().then((checkVisit)=>{
               if (checkVisit.length === 0){
                 req.app.db.collection("users").update({username: username}, {$set: {notif: 1, fame: (profileObject.fame - 1)}});

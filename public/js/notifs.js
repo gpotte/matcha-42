@@ -4,15 +4,22 @@ function checkNotifs(){
     contentType: 'application/json',
     url: 'http://localhost:3030/notifications',
     success: function(data) {
-      if (data !== "Error")
+      if (data !== "Nothing")
         $('#notif-container').html(data);
-      console.log(data);
     }
   });
 }
 
 ///ONCLICK REMOVE TOMATO AND GIVE NOTIF === 0
-
+$('#notif-container').on("click", '#notif-active', ()=>{
+  $('#notif-active').removeAttr("id");
+  $.ajax({
+    type: 'POST',
+    contentType: 'application/json',
+    url: 'http://localhost:3030/notifications/remove',
+    success: function(data){}
+  });
+});
 /// On load check for notifs ///
 checkNotifs();
 

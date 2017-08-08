@@ -15,12 +15,23 @@ router.post('/notifications', (req, res) => {
     var visits = profile[0].visitors.slice(-10);
   }
   //ADD EVERY NOTIFS (MESSAGE/LIKE/DISLIKE)
-  notifs = visits.concat(message, like, dislike);
-  notifs.sort(function(a,b){return a.getTime() - b.getTime()});
-  notifs = notifs.slice(-10);
-  console.log(notifs);
+  if (visits)
+  {
+    notifs = visits.concat(message, like, dislike);
+    notifs.sort(function(a,b){return a.getTime() - b.getTime()});
+    notifs = notifs.slice(-10);
+  }
   res.render('partials/notifs', {newNotifs: profile[0].notif, notifs: notifs});
   });
+});
+
+router.post('/notifications/remove', (req, res)=>{
+  var currentUser = {
+    username : req.cookies.user.username,
+    _id      : ObjectId(req.cookies.user.hash)
+  }
+  req.app.db.collection("users").update(currentUser, {$set: {notif: 0}});
+  res.send("Success");
 });
 
 module.exports = router;

@@ -58,7 +58,8 @@ app.get('/logout', (req, res)=>{
 var loginRoute  = require(process.env.PWD + '/routes/login'),
     userRoute   = require(process.env.PWD + '/routes/user'),
     msgRoute    = require(process.env.PWD + '/routes/messages'),
-    notifRoute  = require(process.env.PWD + '/routes/notifications');
+    notifRoute  = require(process.env.PWD + '/routes/notifications'),
+    likeRoute   = require(process.env.PWD + '/routes/like');
 
 //LOGIN ROUTES (form + post + lost password)
 app.use('/', loginRoute);
@@ -68,6 +69,8 @@ app.use('/', userRoute);
 app.use('/', msgRoute);
 //NOTIF ROUTES
 app.use('/', notifRoute);
+//LIKE ROUTES (maybe popup sur l'ecran de l'user qui est like)
+app.use('/', likeRoute);
 ///////////////////////EXPRESS ROUTER//////////////////////////////////////
 
 app.get('*', (req, res)=>{
