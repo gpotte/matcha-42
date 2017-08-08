@@ -55,22 +55,29 @@ router.post('/user/new', (req, res)=>{
 router.get('/user/:username', middleware.loggedIn(), (req, res)=>{
   var username    = req.params.username,
       currentUser = {username: req.cookies.user.username, photo: req.cookies.user.photo},
+      like        = 0,
       profile     = req.app.db.collection("users").find({username: username}).limit(1);
   profile.toArray().then((profile)=>{
     if (profile.length > 0)
     {
       var profileObject = profile[0];
-        if (req.cookies.user.username !== username)
+        if (currentUser.username !== username)
         {
             var checkVisit = req.app.db.collection("users").find({username: username, 'visitors.name': currentUser.username});
             checkVisit.toArray().then((checkVisit)=>{
-              if (checkVisit.length === 0){
+              if (checkVisit.length === 0)
                 req.app.db.collection("users").update({username: username}, {$set: {notif: 1, fame: (profileObject.fame - 1)}});
-              }
             });
-            req.app.db.collection("users").update({username: username, 'visitors.name': {$ne: currentUser.username}}, { $addToSet: {visitors: {name: currentUser.username, date: Date.now(), type: "visit", photo: currentUser.photo}}});
+            req.app.db.collection("users").update({username: username, 'visitors.name': {$ne: currentUser.username}}, { $addToSet: {visitors: {name: currentUser.username, date: (new Date()).getTime(), type: "visit", photo: currentUser.photo}}});
         }
-        res.render('user/profile', {title: username, user: req.cookies.user, profile: profileObject});
+
+        //CHECK IF THE USER IS LIKED OR NOT AND THE RENDER
+        var checkLike = req.app.db.collection("users").find({username: username, 'like.name': currentUser.username});
+        checkLike.toArray().then((checkLike)=>{
+          if (checkLike.length !== 0)
+            like = 1;
+          res.render('user/profile', {title: username, user: req.cookies.user, profile: profileObject, like: like});
+        });
     }
     else
       res.redirect('/404');

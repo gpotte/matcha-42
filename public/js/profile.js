@@ -15,10 +15,11 @@ $(".likeBtn").click(()=>{
 
 //LIKING FUNCTION
 $(".container").on("click", "#liked", ()=>{
-    var user = window.location.href.split('/')[4];
+    var user = window.location.href.split('/')[4],
+    photo    = $("#profilePic").attr("src");
     $.ajax({
       type: 'POST',
-      data: JSON.stringify({user: user}),
+      data: JSON.stringify({user: user, photo: photo}),
       contentType: 'application/json',
       url: 'http://localhost:3030/like',
       success: function(data) {

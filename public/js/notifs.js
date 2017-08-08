@@ -17,7 +17,9 @@ $('#notif-container').on("click", '#notif-active', ()=>{
     type: 'POST',
     contentType: 'application/json',
     url: 'http://localhost:3030/notifications/remove',
-    success: function(data){}
+    success: function(data){
+      console.log(data);
+    }
   });
 });
 /// On load check for notifs ///

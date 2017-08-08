@@ -9,6 +9,12 @@
     <%if (notif.type === "visit"){%>
       <li><a href="/user/<%=notif.name%>"><img id="profilePic" src="<%=notif.photo%>"/><strong> <%=notif.name%></strong> just visited your profile</a></li>
     <%}%>
+    <%if (notif.type === "like"){%>
+      <li><a href="/user/<%=notif.name%>"><img id="profilePic" src="<%=notif.photo%>"/><strong> <%=notif.name%></strong> just liked you</a></li>
+    <%}%>
+    <%if (notif.type === "match"){%>
+      <li><a href="/user/<%=notif.name%>"><img id="profilePic" src="<%=notif.photo%>"/><strong> IT'S A MATCH</strong></a></li>
+    <%}%>
   <%# ADD FOR EVERY TYPE OF NOTIFS %>
   <%}}%>
   <li id="allNotif"><small><a href="/notifications">see all notifications</a></small></li>
