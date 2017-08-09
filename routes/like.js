@@ -1,4 +1,4 @@
-router.post('/like', (req, res)=>{
+router.post('/like', middleware.loggedIn(), (req, res)=>{
   var currentUser = {username: req.cookies.user.username, photo: req.cookies.user.photo},
       username    = req.body.user,
       photo       = req.body.photo,
@@ -26,4 +26,10 @@ router.post('/like', (req, res)=>{
   });
 });
 
+router.post('/dislike', middleware.loggedIn(), (req, res)=>{
+  var currentUser = {username: req.cookies.user.username, photo: req.cookies.user.photo},
+      username    = req.body.user,
+      photo       = req.body.photo,
+      profile     = req.app.db.collection("users").find({username: currentUser.username}).limit(1);
+});
 module.exports = router;

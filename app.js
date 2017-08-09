@@ -21,14 +21,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'));
 app.set("view engine", "ejs");
 
-///GEOLOCATIN MIDDLEWARE///
+///GEOLOCATION MIDDLEWARE///
 app.use(function(req, res, next) {
   where.is((req.headers['x-forwarded-for'] || '').split(',')[0], function(err, result) {
     req.geoip = result;
     next();
   });
 });
-///GEOLOCATIN MIDDLEWARE///
+///GEOLOCATION MIDDLEWARE///
 
 MongoClient.connect("mongodb://localhost/matcha", function(error, db) {
     if (error) console.log("\x1b[41m%s\x1b[0m", error)

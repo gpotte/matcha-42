@@ -124,6 +124,10 @@ router.post('/user/edit/photo', middleware.loggedIn(), (req, res)=>{
     req.app.db.collection("users").findOneAndUpdate(currentUser, {$set: {photo: photo}}, (err, result)=>{
     if (err){res.send("Error");}
     else if(result.lastErrorObject.n > 0){
+      req.app.db.collection("users").find({'visitors.name': currentUser.username}).toArray().then((test)=>{
+        console.log(test[1]);
+      });
+      req.app.db.collection("users").update({'visitors.name': currentUser.username}, {$set: {'visitors.$.photo': photo[0]}}, false, true);
       res.send("Success");
     }
   });

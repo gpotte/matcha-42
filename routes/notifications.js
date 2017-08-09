@@ -1,4 +1,4 @@
-router.post('/notifications', (req, res) => {
+router.post('/notifications', middleware.loggedIn(), (req, res) => {
   var currentUser = {
     username  : req.cookies.user.username,
     _id       : ObjectId(req.cookies.user.hash)
