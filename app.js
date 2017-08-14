@@ -9,10 +9,11 @@ cookieParser    = require('cookie-parser'),
 MongoClient     = require("mongodb").MongoClient,
 crypto          = require('crypto'),
 xss             = require('xss'),
-io              = require('socket.io')(http);
+io              = require('socket.io')(http),
 port            = process.env.PORT || 3030,
 where           = require('node-where'),
-ObjectId        = require('mongodb').ObjectID;
+ObjectId        = require('mongodb').ObjectID,
+dateFormat = require('dateformat'),
 middleware      = require(__dirname + "/functions/middleware.js");
 
 app.use(cookieParser('your secret here'));
@@ -40,8 +41,6 @@ MongoClient.connect("mongodb://localhost/matcha", function(error, db) {
 });
 
 app.get('/', (req, res)=>{
-    console.log(req.geoip);
-    console.log((req.headers['x-forwarded-for'] || '').split(',')[0]);
     res.redirect('/home');
 });
 
@@ -50,6 +49,8 @@ app.get('/home', middleware.loggedIn(), (req, res)=>{
 });
 
 app.get('/logout', (req, res)=>{
+  var currentUser = {username: req.cookies.user.username, photo: req.cookies.user.photo};
+  app.db.collection("users").update(currentUser, {$set: {connected: dateFormat()}});
   res.clearCookie("user");
   res.redirect("/");
 });

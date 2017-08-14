@@ -18,6 +18,11 @@
   <%if (profile.sex === "male"){%> <i class="fa fa-mars" aria-hidden="true"></i>
   <%} else if (profile.sex === "female"){%>
     <i class="fa fa-venus" aria-hidden="true"></i><%}%>
+  <%if (profile.connected === "Now"){%>
+    <small>Connected</small>
+  <%} else {%>
+    <br><small>last time online: <%=profile.connected%></small>
+  <%}%>
 </h1>
 
 <% include ../partials/profileCarousel %>
@@ -25,7 +30,11 @@
 <h3><strong> <%=profile.firstName%> </strong> <%=profile.name%> </h3><br>
 <h4><%=profile.bio%></h4>
 <div class="jumbotron">
-  <h5><%=profile.fame%></h5>
+  <h5><form id="zipcode">
+    <label>Localisation : </label><input type=text pattern="[0-9]{5}" name=loc value="<%=profile.localisation%>">
+    <input type=submit value="change ZipCode">
+  </form></h5>
+  <h5>Fame : <%=profile.fame%></h5>
   <h4>interests:</h4>
   <% if ((profile.sex === "male" && profile.pref ==="hetero") || (profile.sex === "female" && profile.pref === "homo")){%>
     <i class="fa fa-venus" aria-hidden="true"></i>

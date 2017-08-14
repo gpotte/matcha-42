@@ -2,7 +2,7 @@ function checkNotifs(){
   $.ajax({
     type: 'POST',
     contentType: 'application/json',
-    url: 'http://localhost:3030/notifications',
+    url: 'http://9660d9a5.ngrok.io/notifications',
     success: function(data) {
       if (data !== "Nothing")
         $('#notif-container').html(data);
@@ -16,7 +16,7 @@ $('#notif-container').on("click", '#notif-active', ()=>{
   $.ajax({
     type: 'POST',
     contentType: 'application/json',
-    url: 'http://localhost:3030/notifications/remove',
+    url: 'http://9660d9a5.ngrok.io/notifications/remove',
     success: function(data){
       console.log(data);
     }

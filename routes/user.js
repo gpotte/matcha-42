@@ -21,7 +21,9 @@ router.post('/user/new', (req, res)=>{
         photo: [photo],
         pref: req.body.pref,
         sex: req.body.sex,
-        fame: 100
+        fame: 100,
+        localisation: req.geoip.attributes.postalCode,
+        connected: "Now"
       };
 
       console.log(userObject);
@@ -184,6 +186,21 @@ req.app.db.collection("users").update(currentUser, {$pull: {tags: {id: ObjectId(
       res.send("Success")
     }
   });
+});
+
+router.post('/user/change/loc', middleware.loggedIn(), (req, res)=>{
+  var loc = req.body.loc,
+  currentUser = {
+    username  : req.cookies.user.username,
+    _id       : ObjectId(req.cookies.user.hash)
+  };
+  req.app.db.collection("users").update(currentUser, {$set: {localisation: loc}}, (err, result)=>{
+      if (err){res.send("Error")}
+      else {
+        console.log(result.result)
+        res.send("Success")
+      }
+    });
 });
 ////EDIT USER INFOS///////
 
