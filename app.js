@@ -79,11 +79,12 @@ app.get('*', (req, res)=>{
 });
 
 io.on('connection', (socket)=>{
-  socket.on('user', (name)=>{
-    socket.pseudo = name;
+  socket.on('subscribe', (info)=>{
+    socket.pseudo = info.user;
+    socket.join(info.room);
   });
-  socket.on('chat message', (msg)=>{
-      io.emit('chat message', {pseudo: socket.pseudo, msg: msg})
+  socket.on('chat message', (info)=>{
+      io.sockets.in(info.room).emit('chat message', {pseudo: socket.pseudo, msg: info.msg})
   });
 });
 

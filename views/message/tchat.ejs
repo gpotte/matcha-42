@@ -13,13 +13,16 @@
 <script src="/socket.io/socket.io.js"></script>
 <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 <script>
+  var getSegment = function (url, index) {
+    return url.replace(/^https?:\/\//, '').split('/')[index];
+ }
   $(function () {
     var socket = io();
     $(document).ready(function(){
-      socket.emit('user', "<%=user.username%>");
+      socket.emit('subscribe', {user: "<%=user.username%>", room: getSegment(window.location.href, 2)});
     });
     $('#tchatForm').submit(function(){
-      socket.emit('chat message', $('#tchatInput').val());
+      socket.emit('chat message', {msg: $('#tchatInput').val(), room: getSegment(window.location.href, 2)});
       $('#tchatInput').val('');
       return false;
     });

@@ -29,7 +29,7 @@ $('#signInForm').submit((ev)=>{
       type: 'POST',
       data: JSON.stringify(data),
       contentType: 'application/json',
-      url: 'http://85c1a8a7.ngrok.io/user/new',
+      url: 'http://340ef8cb.ngrok.io/user/new',
       success: function(data) {
         if (data === "username taken")
         {
@@ -50,7 +50,7 @@ $('#signInForm').submit((ev)=>{
           <strong>Error</strong> An error Occured please contact us </div>");
         }
         if (data === "Success")
-          $(location).attr('href', "http://85c1a8a7.ngrok.io/");
+          $(location).attr('href', "http://340ef8cb.ngrok.io/");
         console.log(data);
       }
     });
@@ -67,7 +67,7 @@ $('#logInForm').submit((ev)=>{
       type: 'POST',
       data: JSON.stringify(data),
       contentType: 'application/json',
-      url: 'http://85c1a8a7.ngrok.io/login',
+      url: 'http://340ef8cb.ngrok.io/login',
       success: function(data) {
         if (data === "Error")
         {
@@ -76,7 +76,7 @@ $('#logInForm').submit((ev)=>{
           <strong>Error</strong> Wrong Login or Password</div>");
         }
         if (data === "Success"){
-          $(location).attr('href', "http://85c1a8a7.ngrok.io/");
+          $(location).attr('href', "http://340ef8cb.ngrok.io/");
         }
         console.log(data);
       }
@@ -94,7 +94,7 @@ $('#lostForm').submit((ev)=>{
       type: 'POST',
       data: JSON.stringify(data),
       contentType: 'application/json',
-      url: 'http://85c1a8a7.ngrok.io/login/lost',
+      url: 'http://340ef8cb.ngrok.io/login/lost',
       success: function(data) {
         if (data === "Error")
         {
@@ -122,7 +122,7 @@ $('#resetForm').submit((ev)=>{
       type: 'POST',
       data: JSON.stringify(data),
       contentType: 'application/json',
-      url: 'http://85c1a8a7.ngrok.io/login/newPassword',
+      url: 'http://340ef8cb.ngrok.io/login/newPassword',
       success: function(data) {
         if (data === "Error")
         {
@@ -137,7 +137,7 @@ $('#resetForm').submit((ev)=>{
           <strong>Error</strong> The two fields must be the same</div>");
         }
         if (data === "Success")
-          $(location).attr('href', "http://85c1a8a7.ngrok.io/");
+          $(location).attr('href', "http://340ef8cb.ngrok.io/");
         console.log(data);
       }
     });
