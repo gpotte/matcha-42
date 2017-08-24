@@ -52,15 +52,17 @@ h2 small {
 #tchatForm {
   position: absolute;
   bottom: 0;
-  padding-bottom: 150px;
+  padding-bottom: 10vh;
   padding-right: 15px;
 }
 
 #message {
-  size: 100%;
-  overflow: hidden;
+  height: 60vh;
+  overflow: scroll;
 }
 
+#messageContainer {
+}
 .footer {
   position: absolute;
   bottom: 0;

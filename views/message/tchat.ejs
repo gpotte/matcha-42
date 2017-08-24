@@ -1,5 +1,5 @@
 <% include ../partials/header %>
-<div class=container>
+<div class=container id="messageContainer">
   <ul clas="list-group" id="message"></ul>
   <form id="tchatForm">
     <div class="input-group">
@@ -38,6 +38,7 @@
         $('#message').append("<li class='list-group-item disabled'><strong>"+
                               msg.pseudo + " </strong>"+ msg.msg +
                               "<span class='badge'>" + now.getHours() + ":" + now.getMinutes() + "</span></li>");
+        $('#message').scrollTop(1000);
     });
 
     socket.on('preload', (msg)=>{
@@ -49,6 +50,7 @@
         $('#message').append("<li class='list-group-item disabled'><strong>"+
                               msg.pseudo + " </strong>"+ msg.msg +
                               "<span class='badge'>" + msg.time + "</span></li>");
+          $('#message').scrollTop(1000);
     });
 
   });
