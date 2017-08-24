@@ -8,7 +8,7 @@ router.get('/messages/:user1/:user2', middleware.loggedIn(), (req, res)=>{
       res.redirect(url);
     }
     else {
-      console.log("you cant do this");
+      res.redirect("/");
     }
   });
 });
@@ -19,7 +19,6 @@ router.get('/messages/:room/:user1/:user2', middleware.loggedIn(), (req, res)=>{
   if (user[0] === currentUser.username || user[1] === currentUser.username)
     res.render("message/tchat", {title: "tchatRoom:", user: currentUser});
   else
-    res.send("error");
-    console.log(req.params)
+    res.redirect("/");
 });
 module.exports = router;

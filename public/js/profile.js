@@ -21,7 +21,7 @@ $(".container").on("click", "#liked", ()=>{
       type: 'POST',
       data: JSON.stringify({user: user, photo: photo}),
       contentType: 'application/json',
-      url: 'http://340ef8cb.ngrok.io/like',
+      url: 'http://bbe8f308.ngrok.io/like',
       success: function(data) {
         if (data === "Error")
         {
@@ -48,7 +48,7 @@ $("#editForm").submit((ev)=>{
       type: 'POST',
       data: JSON.stringify(data),
       contentType: 'application/json',
-      url: 'http://340ef8cb.ngrok.io/user/edit/',
+      url: 'http://bbe8f308.ngrok.io/user/edit/',
       success: function(data) {
         $('#editModal').modal('toggle');
         if (data === "Error")
@@ -75,7 +75,7 @@ $("#editPhotoForm").submit((ev)=>{
       type: 'POST',
       data: JSON.stringify(data),
       contentType: 'application/json',
-      url: 'http://340ef8cb.ngrok.io/user/edit/photo',
+      url: 'http://bbe8f308.ngrok.io/user/edit/photo',
       success: function(data) {
         if (data === "Error")
         {
@@ -95,7 +95,7 @@ $(".tag-close").click((e)=>{
     type: 'POST',
     data: JSON.stringify({id: e.currentTarget.id}),
     contentType: 'application/json',
-    url: 'http://340ef8cb.ngrok.io/user/remove/tag',
+    url: 'http://bbe8f308.ngrok.io/user/remove/tag',
     success: function(data) {
       if (data === "Error")
       {
@@ -120,7 +120,7 @@ $("#newTagForm").submit((ev)=>{
       type: 'POST',
       data: JSON.stringify(data),
       contentType: 'application/json',
-      url: 'http://340ef8cb.ngrok.io/user/add/tag',
+      url: 'http://bbe8f308.ngrok.io/user/add/tag',
       success: function(data) {
         if (data === "Error")
         {
@@ -146,7 +146,7 @@ $("#zipcode").submit((ev)=>{
     type: 'POST',
     data: JSON.stringify(data),
     contentType: 'application/json',
-    url: 'http://340ef8cb.ngrok.io/user/change/loc',
+    url: 'http://bbe8f308.ngrok.io/user/change/loc',
     success: function(data) {
       if (data === "Error")
       {

@@ -13,7 +13,7 @@ io              = require('socket.io')(http),
 port            = process.env.PORT || 3030,
 where           = require('node-where'),
 ObjectId        = require('mongodb').ObjectID,
-dateFormat = require('dateformat'),
+dateFormat      = require('dateformat'),
 middleware      = require(__dirname + "/functions/middleware.js");
 
 app.use(cookieParser('your secret here'));
@@ -79,12 +79,23 @@ app.get('*', (req, res)=>{
 });
 
 io.on('connection', (socket)=>{
-  socket.on('subscribe', (info)=>{
-    socket.pseudo = info.user;
-    socket.join(info.room);
+
+  socket.on('subscribe', (data)=>{
+    socket.pseudo = data.user;
+    socket.join(data.room);
+    app.db.collection("tchat").find({room: data.room}).sort({$natural: -1}).limit(10).toArray().then((history)=>{
+      if (history.length > 0)
+        for (message of history) {
+          io.sockets.in(data.room).emit('preload', {pseudo: message.pseudo, msg: message.msg, time: message.time});
+          console.log(message);
+          console.log(">..................<");
+        }
+    });
   });
-  socket.on('chat message', (info)=>{
-      io.sockets.in(info.room).emit('chat message', {pseudo: socket.pseudo, msg: info.msg})
+
+  socket.on('chat message', (data)=>{
+      app.db.collection("tchat").insert({room: data.room, msg: data.msg, pseudo: socket.pseudo, time: dateFormat("longTime")});
+      io.sockets.in(data.room).emit('chat message', {pseudo: socket.pseudo, msg: data.msg});
   });
 });
 
