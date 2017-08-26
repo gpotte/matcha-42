@@ -1,5 +1,6 @@
 <% include ../partials/header %>
 <div class=container id="messageContainer">
+  <a>Load More ...</a>
   <ul clas="list-group" id="message"></ul>
   <form id="tchatForm">
     <div class="input-group">
@@ -12,47 +13,6 @@
 </div>
 <script src="/socket.io/socket.io.js"></script>
 <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
-<script>
-  var getSegment = function (url, index) {
-    return url.replace(/^https?:\/\//, '').split('/')[index];
- }
-  $(function () {
-    var socket = io();
-    $(document).ready(function(){
-      socket.emit('subscribe', {user: "<%=user.username%>", room: getSegment(window.location.href, 2)});
-    });
-
-    $('#tchatForm').submit(function(){
-      socket.emit('chat message', {msg: $('#tchatInput').val(), room: getSegment(window.location.href, 2)});
-      $('#tchatInput').val('');
-      return false;
-    });
-
-    socket.on('chat message', (msg)=>{
-      var now = new Date(Date.now());
-      if (msg.pseudo === "<%=user.username%>")
-        $('#message').append("<li class='list-group-item'><strong>"+
-                              msg.pseudo + " </strong>"+ msg.msg +
-                              "<span class='badge'>" + now.getHours() + ":" + now.getMinutes() + "</span></li>");
-      else
-        $('#message').append("<li class='list-group-item disabled'><strong>"+
-                              msg.pseudo + " </strong>"+ msg.msg +
-                              "<span class='badge'>" + now.getHours() + ":" + now.getMinutes() + "</span></li>");
-        $('#message').scrollTop(1000);
-    });
-
-    socket.on('preload', (msg)=>{
-      if (msg.pseudo === "<%=user.username%>")
-        $('#message').append("<li class='list-group-item'><strong>"+
-                              msg.pseudo + " </strong>"+ msg.msg +
-                              "<span class='badge'>" + msg.time + "</span></li>");
-      else
-        $('#message').append("<li class='list-group-item disabled'><strong>"+
-                              msg.pseudo + " </strong>"+ msg.msg +
-                              "<span class='badge'>" + msg.time + "</span></li>");
-          $('#message').scrollTop(1000);
-    });
-
-  });
-</script>
+<script>var user="<%=user.username%>"</script>
+<script src="/js/tchat.js"></script>
 <% include ../partials/footer %>

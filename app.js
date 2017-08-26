@@ -16,6 +16,9 @@ ObjectId        = require('mongodb').ObjectID,
 dateFormat      = require('dateformat'),
 middleware      = require(__dirname + "/functions/middleware.js");
 
+if (!process.env.PWD) {
+  process.env.PWD = process.cwd();
+}
 app.use(cookieParser('your secret here'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -76,27 +79,6 @@ app.use('/', likeRoute);
 
 app.get('*', (req, res)=>{
   res.render('404', {title: '404'});
-});
-
-io.on('connection', (socket)=>{
-
-  socket.on('subscribe', (data)=>{
-    socket.pseudo = data.user;
-    socket.join(data.room);
-    app.db.collection("tchat").find({room: data.room}).sort({$natural: -1}).limit(10).toArray().then((history)=>{
-      if (history.length > 0)
-        for (message of history) {
-          io.sockets.in(data.room).emit('preload', {pseudo: message.pseudo, msg: message.msg, time: message.time});
-          console.log(message);
-          console.log(">..................<");
-        }
-    });
-  });
-
-  socket.on('chat message', (data)=>{
-      app.db.collection("tchat").insert({room: data.room, msg: data.msg, pseudo: socket.pseudo, time: dateFormat("longTime")});
-      io.sockets.in(data.room).emit('chat message', {pseudo: socket.pseudo, msg: data.msg});
-  });
 });
 
 http.listen(port, ()=>{

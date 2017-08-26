@@ -21,4 +21,27 @@ router.get('/messages/:room/:user1/:user2', middleware.loggedIn(), (req, res)=>{
   else
     res.redirect("/");
 });
+
+io.on('connection', (socket)=>{
+
+  socket.on('subscribe', (data)=>{
+    socket.pseudo = data.user;
+    socket.join(data.room);
+    app.db.collection("tchat").find({room: data.room}).sort({$natural: -1}).limit(10).toArray().then((history)=>{
+      history.reverse();
+      if (history.length > 0)
+        for (message of history) {
+          io.sockets.in(data.room).emit('preload', {pseudo: message.pseudo, msg: message.msg, time: message.time});
+          console.log(message);
+          console.log(">..................<");
+        }
+    });
+  });
+
+  socket.on('chat message', (data)=>{
+      app.db.collection("tchat").insert({room: data.room, msg: data.msg, pseudo: socket.pseudo, time: dateFormat("longTime")});
+      io.sockets.in(data.room).emit('chat message', {pseudo: socket.pseudo, msg: data.msg});
+  });
+});
+
 module.exports = router;
