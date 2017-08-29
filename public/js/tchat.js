@@ -2,6 +2,17 @@ var preload    = 0,
     getSegment = function (url, index) {
   return url.replace(/^https?:\/\//, '').split('/')[index];
 }
+
+$("#loadMore").click(()=>{
+    var tmp = $("#message").children().eq(0).find('span').text(),
+    tmp1 = $("#message").children().eq(1).find('span').text();
+    if (tmp < tmp1)
+      console.log(1);
+    else
+      console.log(2);
+
+});
+
 $(function () {
   var socket = io();
   $(document).ready(function(){
