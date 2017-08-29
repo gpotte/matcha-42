@@ -44,4 +44,29 @@ io.on('connection', (socket)=>{
   });
 });
 
+router.post('/messages/loadMore', middleware.loggedIn(), (req, res)=>{
+  var currentUser = {username: req.cookies.user.username, photo: req.cookies.user.photo},
+      room        = req.body.room,
+      lastTime    = req.body.lastTime,
+      returnValue = "";
+  app.db.collection("tchat").find({room: room, time: {$lt: lastTime}}).sort({$natural: -1}).limit(10).toArray().then((history)=>{
+    history.reverse();
+    if (history.length > 0)
+      for (message of history){
+        if (message.pseudo === currentUser.username){
+          returnValue = returnValue + "<li class='list-group-item'><strong>"+
+                                message.pseudo + " </strong>"+ message.msg +
+                                "<span class='badge'>" + message.time + "</span></li>";
+        }
+        else {
+          returnValue = returnValue + "<li class='list-group-item disabled'><strong>"+
+                                message.pseudo + " </strong>"+ message.msg +
+                                "<span class='badge'>" + message.time + "</span></li>";
+        }
+      }
+      res.send(returnValue);
+  });
+
+});
+
 module.exports = router;

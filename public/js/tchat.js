@@ -4,13 +4,26 @@ var preload    = 0,
 }
 
 $("#loadMore").click(()=>{
-    var tmp = $("#message").children().eq(0).find('span').text(),
-    tmp1 = $("#message").children().eq(1).find('span').text();
-    if (tmp < tmp1)
-      console.log(1);
-    else
-      console.log(2);
-
+    var lastTime = $("#message").children().eq(0).find('span').text(),
+        room   = getSegment(window.location.href, 2);
+    $.ajax({
+      type: 'POST',
+      data: JSON.stringify({lastTime: lastTime, room: room}),
+      contentType: 'application/json',
+      url: 'http://b328ee51.ngrok.io/messages/loadMore',
+      success: function(data) {
+        if (data === "Error")
+        {
+          $(".container").prepend("<div class='alert alert-danger alert-dismissable fade in'>\
+          <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>\
+          <strong>Error</strong> Something went Wrong</div>");
+        }
+        else {
+          $('#message').prepend(data);
+          $('#message').scrollTop();
+        }
+      }
+    });
 });
 
 $(function () {
