@@ -21,7 +21,7 @@ $(".container").on("click", "#liked", ()=>{
       type: 'POST',
       data: JSON.stringify({user: user, photo: photo}),
       contentType: 'application/json',
-      url: 'http://b328ee51.ngrok.io/like',
+      url: 'http://1dafb61e.ngrok.io/like',
       success: function(data) {
         if (data === "Error")
         {
@@ -35,6 +35,22 @@ $(".container").on("click", "#liked", ()=>{
 
 //DISLIKING FUNCTION
 $(".container").on("click", "#notLiked", ()=>{
+  var user = window.location.href.split('/')[4],
+  photo    = $("#profilePic").attr("src");
+  $.ajax({
+    type: 'POST',
+    data: JSON.stringify({user: user, photo: photo}),
+    contentType: 'application/json',
+    url: 'http://1dafb61e.ngrok.io/dislike',
+    success: function(data) {
+      if (data === "Error")
+      {
+        $(".container").prepend("<div class='alert alert-danger alert-dismissable fade in'>\
+        <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>\
+        <strong>Error</strong> Something went Wrong</div>");
+      }
+    }
+  });
 });
 
 $("#editForm").submit((ev)=>{
@@ -48,7 +64,7 @@ $("#editForm").submit((ev)=>{
       type: 'POST',
       data: JSON.stringify(data),
       contentType: 'application/json',
-      url: 'http://b328ee51.ngrok.io/user/edit/',
+      url: 'http://1dafb61e.ngrok.io/user/edit/',
       success: function(data) {
         $('#editModal').modal('toggle');
         if (data === "Error")
@@ -75,7 +91,7 @@ $("#editPhotoForm").submit((ev)=>{
       type: 'POST',
       data: JSON.stringify(data),
       contentType: 'application/json',
-      url: 'http://b328ee51.ngrok.io/user/edit/photo',
+      url: 'http://1dafb61e.ngrok.io/user/edit/photo',
       success: function(data) {
         if (data === "Error")
         {
@@ -95,7 +111,7 @@ $(".tag-close").click((e)=>{
     type: 'POST',
     data: JSON.stringify({id: e.currentTarget.id}),
     contentType: 'application/json',
-    url: 'http://b328ee51.ngrok.io/user/remove/tag',
+    url: 'http://1dafb61e.ngrok.io/user/remove/tag',
     success: function(data) {
       if (data === "Error")
       {
@@ -120,7 +136,7 @@ $("#newTagForm").submit((ev)=>{
       type: 'POST',
       data: JSON.stringify(data),
       contentType: 'application/json',
-      url: 'http://b328ee51.ngrok.io/user/add/tag',
+      url: 'http://1dafb61e.ngrok.io/user/add/tag',
       success: function(data) {
         if (data === "Error")
         {
@@ -146,7 +162,7 @@ $("#zipcode").submit((ev)=>{
     type: 'POST',
     data: JSON.stringify(data),
     contentType: 'application/json',
-    url: 'http://b328ee51.ngrok.io/user/change/loc',
+    url: 'http://1dafb61e.ngrok.io/user/change/loc',
     success: function(data) {
       if (data === "Error")
       {

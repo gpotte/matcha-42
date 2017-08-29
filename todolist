@@ -1,7 +1,5 @@
 - DISLIKE
 
-- SAVE TCHAT IN DB
-
 - SHOW IF LIKED OR MATCHED
 - REPORT FAKE USERS
 - BLOCK USERS (do not show in search results + do not generate any notifications)

@@ -18,11 +18,7 @@ router.post('/like', middleware.loggedIn(), (req, res)=>{
       }
     }}
     //REMOVE DISLIKE
-    var target = req.app.db.collection("users").find({username: username}).limit(1);
-    target.toArray().then((target)=>{
-      if (target[0].dislike && profile[0].dislike.indexOf(currentUser.username) !== -1)
-        req.app.db.collection("users").update({username: username}, {$pull: {dislike: {name: currentUser.username}}});
-    });
+    req.app.db.collection("users").update({username: username}, {$pull: {dislike: {name: currentUser.username}}});
   });
 });
 
@@ -31,5 +27,13 @@ router.post('/dislike', middleware.loggedIn(), (req, res)=>{
       username    = req.body.user,
       photo       = req.body.photo,
       profile     = req.app.db.collection("users").find({username: currentUser.username}).limit(1);
+      profile.toArray().then((profile)=>{
+        req.app.db.collection("users").update({username: username}, {$set: {notif: 1}, $inc: {fame: -2}});
+        //REMOVE LIKE AND MATCHS
+          req.app.db.collection("users").update({username: username}, {$pull: {like: {name: currentUser.username}, match: {name: currentUser.username}}});
+          req.app.db.collection("users").update({username: currentUser.username}, {$pull: {match: {name: username}}});
+        //ADD dislike
+          req.app.db.collection("users").update({username: username}, {$addToSet: {dislike: {name: currentUser.username, date: (new Date()).getTime(), type: "dislike", photo: currentUser.photo}}});
+      });
 });
 module.exports = router;

@@ -15,6 +15,9 @@
     <%if (notif.type === "match"){%>
       <li><a href="/user/<%=notif.name%>"><img id="profilePic" src="<%=notif.photo%>"/><strong> IT'S A MATCH</strong></a></li>
     <%}%>
+    <%if (notif.type === "dislike"){%>
+      <li><a href="/user/<%=notif.name%>"><img id="profilePic" src="<%=notif.photo%>"/><strong> <%=notif.name%></strong> just disliked you</a></li>
+    <%}%>
   <%# ADD FOR EVERY TYPE OF NOTIFS %>
   <%}}%>
   <li id="allNotif"><small><a href="/notifications">see all notifications</a></small></li>

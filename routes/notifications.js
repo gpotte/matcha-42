@@ -12,16 +12,16 @@ router.post('/notifications', middleware.loggedIn(), (req, res) => {
   profile = req.app.db.collection("users").find(currentUser).limit(1);
   profile.toArray().then((profile)=>{
     if (profile[0].visitors){
-    profile[0].visitors.sort(function(a,b){return b.date - a.date});
     visits = profile[0].visitors.slice(-10);
     }
     if (profile[0].like){
-      profile[0].like.sort(function(a,b){return b.date - a.date});
       like = profile[0].like.slice(-10);
     }
     if (profile[0].match){
-      profile[0].match.sort(function(a,b){return b.date - a.date});
       match = profile[0].match.slice(-10);
+    }
+    if (profile[0].dislike){
+      dislike = profile[0].dislike.slice(-10);
     }
   //ADD EVERY NOTIFS (MESSAGE/LIKE/DISLIKE)
   if (visits)
