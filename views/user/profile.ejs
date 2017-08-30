@@ -28,6 +28,7 @@
 <% include ../partials/profileCarousel %>
 
 <h3><strong> <%=profile.firstName%> </strong> <%=profile.name%> </h3><br>
+<h4 id="likeStatus"></h4><br>
 <h4><%=profile.bio%></h4>
 <div class="jumbotron">
   <h5><form id="zipcode">
@@ -61,6 +62,7 @@
   <% include ../partials/editProfileModal%>
   <% include ../partials/tagModal %>
 <%}%>
+<script>var profile = "<%=profile.username%>";</script>
 <script src="/js/profile.js"></script>
 </div>
 <% include ../partials/footer %>

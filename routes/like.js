@@ -36,4 +36,27 @@ router.post('/dislike', middleware.loggedIn(), (req, res)=>{
           req.app.db.collection("users").update({username: username}, {$addToSet: {dislike: {name: currentUser.username, date: (new Date()).getTime(), type: "dislike", photo: currentUser.photo}}});
       });
 });
+
+router.post('/getLike', (req, res)=>{
+  var currentUser = {username: req.cookies.user.username, photo: req.cookies.user.photo},
+      username    = req.body.user,
+      bool        = 0,
+      currentProfile = req.app.db.collection("users").find({username: currentUser.username}).limit(1);
+  //CHECK IF VISITED USER LIKE OR MATCH CURRENT USER
+  currentProfile.toArray().then((currentProfile)=>{
+    if (currentProfile[0].match !== undefined)
+      for (match of currentProfile[0].match)
+        if (match.name === username)
+        {
+          res.send("Match");
+          bool = 1;
+        }
+    if (currentProfile[0].like !== undefined && bool === 0)
+      for (like of currentProfile[0].like)
+        if (like.name === username)
+        {
+          res.send("Liked");
+        }
+  });
+});
 module.exports = router;

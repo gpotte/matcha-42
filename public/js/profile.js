@@ -21,7 +21,7 @@ $(".container").on("click", "#liked", ()=>{
       type: 'POST',
       data: JSON.stringify({user: user, photo: photo}),
       contentType: 'application/json',
-      url: 'http://1dafb61e.ngrok.io/like',
+      url: 'http://95d0b4c0.ngrok.io/like',
       success: function(data) {
         if (data === "Error")
         {
@@ -41,7 +41,7 @@ $(".container").on("click", "#notLiked", ()=>{
     type: 'POST',
     data: JSON.stringify({user: user, photo: photo}),
     contentType: 'application/json',
-    url: 'http://1dafb61e.ngrok.io/dislike',
+    url: 'http://95d0b4c0.ngrok.io/dislike',
     success: function(data) {
       if (data === "Error")
       {
@@ -64,7 +64,7 @@ $("#editForm").submit((ev)=>{
       type: 'POST',
       data: JSON.stringify(data),
       contentType: 'application/json',
-      url: 'http://1dafb61e.ngrok.io/user/edit/',
+      url: 'http://95d0b4c0.ngrok.io/user/edit/',
       success: function(data) {
         $('#editModal').modal('toggle');
         if (data === "Error")
@@ -91,7 +91,7 @@ $("#editPhotoForm").submit((ev)=>{
       type: 'POST',
       data: JSON.stringify(data),
       contentType: 'application/json',
-      url: 'http://1dafb61e.ngrok.io/user/edit/photo',
+      url: 'http://95d0b4c0.ngrok.io/user/edit/photo',
       success: function(data) {
         if (data === "Error")
         {
@@ -111,7 +111,7 @@ $(".tag-close").click((e)=>{
     type: 'POST',
     data: JSON.stringify({id: e.currentTarget.id}),
     contentType: 'application/json',
-    url: 'http://1dafb61e.ngrok.io/user/remove/tag',
+    url: 'http://95d0b4c0.ngrok.io/user/remove/tag',
     success: function(data) {
       if (data === "Error")
       {
@@ -136,7 +136,7 @@ $("#newTagForm").submit((ev)=>{
       type: 'POST',
       data: JSON.stringify(data),
       contentType: 'application/json',
-      url: 'http://1dafb61e.ngrok.io/user/add/tag',
+      url: 'http://95d0b4c0.ngrok.io/user/add/tag',
       success: function(data) {
         if (data === "Error")
         {
@@ -162,7 +162,7 @@ $("#zipcode").submit((ev)=>{
     type: 'POST',
     data: JSON.stringify(data),
     contentType: 'application/json',
-    url: 'http://1dafb61e.ngrok.io/user/change/loc',
+    url: 'http://95d0b4c0.ngrok.io/user/change/loc',
     success: function(data) {
       if (data === "Error")
       {
@@ -176,3 +176,28 @@ $("#zipcode").submit((ev)=>{
     }
   });
 });
+
+function checkLiked(){
+  $.ajax({
+    type: 'POST',
+    data: JSON.stringify({user: profile}),
+    contentType: 'application/json',
+    url: 'http://95d0b4c0.ngrok.io/getLike',
+    success: function(data) {
+      console.log(data);
+      if (data === "Liked")
+        $('#likeStatus').html("This user like you !");
+      else if (data === "Match")
+        $("#likeStatus").html("IT'S A MATCH <3");
+      else
+        $("#likeStatus").html("");
+    }
+  });
+}
+/// On load check for like ///
+checkLiked();
+
+setInterval(()=>{
+  checkLiked();
+}, 35000)
+/// On load check for like ///
