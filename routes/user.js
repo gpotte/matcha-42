@@ -198,6 +198,19 @@ router.post('/user/change/loc', middleware.loggedIn(), (req, res)=>{
 });
 ////EDIT USER INFOS///////
 
+router.post('/user/report', (req, res)=>{
+  var currentUser = { username  : req.cookies.user.username},
+      reported    = req.body.reported;
+  sendmail({
+    from: 'no-reply@matcha.com',
+    to: 'gilles.potte.jirandrid@gmail.com',
+    subject: "User reported",
+    html: "Hello " + currentUser.username + " just reported " + reported + ".\nYou can access it via http://9a4994d1.ngrok.io/user/" + reported
+    }, (err, reply)=>{
+      if (err){res.send("Error")}
+      if (reply){res.send("Success")}
+    });
+});
 
 
 module.exports = router;

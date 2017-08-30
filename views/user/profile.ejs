@@ -5,11 +5,16 @@
   <button id="settings" class="btn btn-default btn-lg btn-warning" data-toggle="modal" data-target="#editModal">
     <i class="fa fa-cog" aria-hidden="true"></i>
   </button>
-<%} else if (like === 1){%>
+<%} if (profile.username !== user.username) {%>
+    <button id="report" class="btn btn-default btn-lg btn-danger" data-toggle="modal" data-target="#reportModal">
+      <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+    </button>
+<%}%>
+<%if (like === 1 && profile.username !== user.username){%>
   <button id="liked" class="btn btn-default btn-lg btn-success likeBtn">
     <i class="fa fa-thumbs-up" aria-hidden="true"></i>
   </button>
-<%} else {%>
+<%} else if (profile.username !== user.username){%>
   <button id="notLiked" class="btn btn-default btn-lg btn-danger likeBtn">
     <i class="fa fa-thumbs-down" aria-hidden="true"></i>
   </button>
@@ -61,6 +66,8 @@
   <% include ../partials/editPhotoModal %>
   <% include ../partials/editProfileModal%>
   <% include ../partials/tagModal %>
+<%} else {%>
+  <% include ../partials/reportModal %>
 <%}%>
 <script>var profile = "<%=profile.username%>";</script>
 <script src="/js/profile.js"></script>

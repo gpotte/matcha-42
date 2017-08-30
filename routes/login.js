@@ -1,4 +1,3 @@
-var sendmail = require('sendmail')();
 
 //// LOGIN FORM + POST ////
 router.get('/login', (req, res)=>{

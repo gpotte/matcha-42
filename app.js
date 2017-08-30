@@ -14,6 +14,7 @@ port            = process.env.PORT || 3030,
 where           = require('node-where'),
 ObjectId        = require('mongodb').ObjectID,
 dateFormat      = require('dateformat'),
+sendmail        = require('sendmail')(),
 middleware      = require(__dirname + "/functions/middleware.js");
 
 if (!process.env.PWD) {
