@@ -6,9 +6,12 @@
     <i class="fa fa-cog" aria-hidden="true"></i>
   </button>
 <%} if (profile.username !== user.username) {%>
-    <button id="report" class="btn btn-default btn-lg btn-danger" data-toggle="modal" data-target="#reportModal">
-      <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
-    </button>
+  <button id="block" class="btn btn-default btn-lg btn-danger" data-toggle="modal" data-target="#blockModal">
+    <i class="fa fa-ban" aria-hidden="true"></i>
+  </button>
+  <button id="report" class="btn btn-default btn-lg btn-danger" data-toggle="modal" data-target="#reportModal">
+    <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+  </button>
 <%}%>
 <%if (like === 1 && profile.username !== user.username){%>
   <button id="liked" class="btn btn-default btn-lg btn-success likeBtn">
@@ -67,6 +70,7 @@
   <% include ../partials/editProfileModal%>
   <% include ../partials/tagModal %>
 <%} else {%>
+<%# REPORT AND BLOCK MODALS %>
   <% include ../partials/reportModal %>
 <%}%>
 <script>var profile = "<%=profile.username%>";</script>

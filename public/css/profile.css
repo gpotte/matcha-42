@@ -6,8 +6,9 @@
     float: right;
 }
 
-#report, .likeBtn{
+#report, #block, .likeBtn{
   float: right;
+  margin-right: 4px;
 }
 
 .carousel{
