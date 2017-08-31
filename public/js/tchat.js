@@ -10,7 +10,7 @@ $("#loadMore").click(()=>{
       type: 'POST',
       data: JSON.stringify({lastTime: lastTime, room: room}),
       contentType: 'application/json',
-      url: 'http://e9bae412.ngrok.io/messages/loadMore',
+      url: 'http://localhost:3030/messages/loadMore',
       success: function(data) {
         if (data === "Error")
         {

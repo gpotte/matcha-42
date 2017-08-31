@@ -23,7 +23,8 @@ router.post('/user/new', (req, res)=>{
         sex: req.body.sex,
         fame: 100,
         localisation: req.geoip.attributes.postalCode,
-        connected: "Now"
+        connected: "Now",
+        blocked: ['a']
       };
 
       console.log(userObject);

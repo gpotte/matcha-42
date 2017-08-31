@@ -21,7 +21,7 @@ $(".container").on("click", "#liked", ()=>{
       type: 'POST',
       data: JSON.stringify({user: user, photo: photo}),
       contentType: 'application/json',
-      url: 'http://e9bae412.ngrok.io/like',
+      url: 'http://localhost:3030/like',
       success: function(data) {
         if (data === "Error")
         {
@@ -41,7 +41,7 @@ $(".container").on("click", "#notLiked", ()=>{
     type: 'POST',
     data: JSON.stringify({user: user, photo: photo}),
     contentType: 'application/json',
-    url: 'http://e9bae412.ngrok.io/dislike',
+    url: 'http://localhost:3030/dislike',
     success: function(data) {
       if (data === "Error")
       {
@@ -64,7 +64,7 @@ $("#editForm").submit((ev)=>{
       type: 'POST',
       data: JSON.stringify(data),
       contentType: 'application/json',
-      url: 'http://e9bae412.ngrok.io/user/edit/',
+      url: 'http://localhost:3030/user/edit/',
       success: function(data) {
         $('#editModal').modal('toggle');
         if (data === "Error")
@@ -91,7 +91,7 @@ $("#editPhotoForm").submit((ev)=>{
       type: 'POST',
       data: JSON.stringify(data),
       contentType: 'application/json',
-      url: 'http://e9bae412.ngrok.io/user/edit/photo',
+      url: 'http://localhost:3030/user/edit/photo',
       success: function(data) {
         if (data === "Error")
         {
@@ -111,7 +111,7 @@ $(".tag-close").click((e)=>{
     type: 'POST',
     data: JSON.stringify({id: e.currentTarget.id}),
     contentType: 'application/json',
-    url: 'http://e9bae412.ngrok.io/user/remove/tag',
+    url: 'http://localhost:3030/user/remove/tag',
     success: function(data) {
       if (data === "Error")
       {
@@ -136,7 +136,7 @@ $("#newTagForm").submit((ev)=>{
       type: 'POST',
       data: JSON.stringify(data),
       contentType: 'application/json',
-      url: 'http://e9bae412.ngrok.io/user/add/tag',
+      url: 'http://localhost:3030/user/add/tag',
       success: function(data) {
         if (data === "Error")
         {
@@ -162,7 +162,7 @@ $("#zipcode").submit((ev)=>{
     type: 'POST',
     data: JSON.stringify(data),
     contentType: 'application/json',
-    url: 'http://e9bae412.ngrok.io/user/change/loc',
+    url: 'http://localhost:3030/user/change/loc',
     success: function(data) {
       if (data === "Error")
       {
@@ -182,7 +182,7 @@ $("#reportBtn").click(()=>{
     type: 'POST',
     data: JSON.stringify({reported: profile}),
     contentType: 'application/json',
-    url: 'http://e9bae412.ngrok.io/user/report',
+    url: 'http://localhost:3030/user/report',
     success: function(data){
       if (data === "Success") {
       $(".container").prepend("<div class='alert alert-danger alert-dismissable fade in'>\
@@ -205,7 +205,7 @@ $("#reportBtn").click(()=>{
     type: 'POST',
     data: JSON.stringify({blocked: profile}),
     contentType: 'application/json',
-    url: 'http://e9bae412.ngrok.io/user/block',
+    url: 'http://localhost:3030/user/block',
     success: function(data){
       if (data === "Success") {
       $(".container").prepend("<div class='alert alert-danger alert-dismissable fade in'>\
@@ -228,7 +228,7 @@ function checkLiked(){
     type: 'POST',
     data: JSON.stringify({user: profile}),
     contentType: 'application/json',
-    url: 'http://e9bae412.ngrok.io/getLike',
+    url: 'http://localhost:3030/getLike',
     success: function(data) {
       console.log(data);
       if (data === "Liked")
