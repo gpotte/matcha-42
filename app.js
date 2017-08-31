@@ -81,9 +81,11 @@ app.use('/', likeRoute);
 app.get('/test', (req, res)=>{
   var currentUser = {username: req.cookies.user.username};
   app.db.collection("users").find(currentUser).toArray().then((user)=>{
-    app.db.collection("users").find({username: {$ne: user[0].username}, tags: {$in: user[0].tags}, 'like.name': {$ne: user[0].username}, blocked: {$ne: user[0].username}}).toArray().then((result)=>{
-      console.log(result[0]);
-    });
+    if (user[0].pref === 'bi'){
+      app.db.collection("users").find({username: {$ne: user[0].username}, tags: {$in: user[0].tags}, 'like.name': {$ne: user[0].username}, blocked: {$ne: user[0].username}}).toArray().then((result)=>{
+        console.log(result[0]);
+      });
+    }
   });
   res.redirect('/');
 });
