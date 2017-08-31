@@ -213,6 +213,17 @@ router.post('/user/report', (req, res)=>{
       if (reply){res.send("Success")}
     });
 });
+
+router.post('/user/block', (req, res)=>{
+  var currentUser = { username  : req.cookies.user.username},
+      blocked     = req.body.blocked,
+      room        = [currentUser.username, blocked].sort();
+  console.log(blocked);
+  req.app.db.collection("users").update({username: currentUser.username, blocked: {$ne: blocked}}, {$addToSet: {blocked: blocked}, $pull: {like: {name: blocked}, match: {name: blocked}, dislike: {name: blocked}, visitors: {name: blocked}}});
+  req.app.db.collection("users").update({username: blocked, blocked: {$ne: currentUser.username}}, {$addToSet: {blocked: currentUser.username}, $pull: {like: {name: currentUser.username}, match: {name: currentUser.username}, dislike: {name: currentUser.username}, visitors: {name: currentUser.username}}});
+  req.app.db.collection("tchat").remove({room: room[0]+room[1]});
+  res.send("Success");
+});
 //REPORT AND BLOCK
 
 module.exports = router;

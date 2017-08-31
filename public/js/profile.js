@@ -200,7 +200,7 @@ $("#reportBtn").click(()=>{
   });
 });
 
-$("#reportBtn").click(()=>{
+$("#blockBtn").click(()=>{
   $.ajax({
     type: 'POST',
     data: JSON.stringify({blocked: profile}),
@@ -211,13 +211,13 @@ $("#reportBtn").click(()=>{
       $(".container").prepend("<div class='alert alert-danger alert-dismissable fade in'>\
       <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>\
       <strong>Success</strong> This account has been blocked</div>");
-      $("#reportModal").modal('toggle');
+      $("#blockModal").modal('toggle');
       }
       else {
         $(".container").prepend("<div class='alert alert-danger alert-dismissable fade in'>\
         <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>\
         <strong>Error</strong> something went wrong</div>");
-        $("#reportModal").modal('toggle');
+        $("#blockModal").modal('toggle');
       }
     }
   });
