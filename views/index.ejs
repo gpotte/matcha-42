@@ -1,11 +1,23 @@
 <% include partials/header %>
 <div class="thumbnail">
+<form id="advancedSearch">
+  <label>Limit ages :</label>
+  <input type="number" name="minAge" placeholder="minAge">
+  <input type="number" name="maxAge" placeholder="maxAge"><br><br>
+  <label>Limit fame :</label>
+  <input type="number" name="minFame" placeholder="minFame">
+  <input type="number" name="maxFame" placeholder="maxFame"><br><br>
+  <label>Favourite Tag :</label>
+  <input type="text" name="tag" placeholder="Fav Tag"><br><br>
+  <label>Specific location</label>
+  <input type="number" name="location" placeholder="Zipcode"><br><br>
   <label>Order by: </label>
-  <select name="searchOrder" required>
+  <select name="sort" required>
     <option value="fame">Fame</option>
     <option value="age">Age</option>
-  </select>
-  <button class="btn btn-default btn-success">Search</button>
+  </select><br><br>
+  <input type="submit" class="btn btn-default btn-success"></button>
+</form>
 </div>
 <div class="container" id="suggestionsResults">
 </div>

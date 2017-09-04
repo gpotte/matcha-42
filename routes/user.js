@@ -25,7 +25,7 @@ router.post('/user/new', (req, res)=>{
         localisation: req.geoip.attributes.postalCode,
         connected: "Now",
         blocked: ['a'],
-        age: req.body.age
+        age: parseInt(req.body.age)
       };
 
       console.log(userObject);

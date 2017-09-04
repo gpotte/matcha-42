@@ -1,6 +1,13 @@
 function searchProfiles(){
+  var formdata = $("#advancedSearch").serializeArray();
+  var data = {};
+  $(formdata).each(function(index, obj){
+    data[obj.name] = obj.value;
+  });
+  console.log(data);
   $.ajax({
     type: 'POST',
+    data: JSON.stringify(data),
     contentType: 'application/json',
     url: 'http://localhost:3030/suggestion',
     success: function(data) {
@@ -36,5 +43,10 @@ function searchProfiles(){
     }
   });
 }
+
+$("#advancedSearch").submit((ev)=>{
+  ev.preventDefault();
+  searchProfiles();
+});
 
 searchProfiles();
