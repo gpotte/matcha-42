@@ -60,11 +60,12 @@ app.get('/logout', (req, res)=>{
 });
 
 ///////////////////////EXPRESS ROUTER//////////////////////////////////////
-var loginRoute  = require(process.env.PWD + '/routes/login'),
-    userRoute   = require(process.env.PWD + '/routes/user'),
-    msgRoute    = require(process.env.PWD + '/routes/messages'),
-    notifRoute  = require(process.env.PWD + '/routes/notifications'),
-    likeRoute   = require(process.env.PWD + '/routes/like');
+var loginRoute       = require(process.env.PWD + '/routes/login'),
+    userRoute        = require(process.env.PWD + '/routes/user'),
+    msgRoute         = require(process.env.PWD + '/routes/messages'),
+    notifRoute       = require(process.env.PWD + '/routes/notifications'),
+    likeRoute        = require(process.env.PWD + '/routes/like'),
+    suggestionsRoute = require(process.env.PWD + '/routes/suggestions');
 
 //LOGIN ROUTES (form + post + lost password)
 app.use('/', loginRoute);
@@ -76,19 +77,9 @@ app.use('/', msgRoute);
 app.use('/', notifRoute);
 //LIKE ROUTES (maybe popup sur l'ecran de l'user qui est like)
 app.use('/', likeRoute);
+//SUGGESTIONS + RESEARCH ROUTES
+app.use('/', suggestionsRoute);
 ///////////////////////EXPRESS ROUTER//////////////////////////////////////
-
-app.get('/test', (req, res)=>{
-  var currentUser = {username: req.cookies.user.username};
-  app.db.collection("users").find(currentUser).toArray().then((user)=>{
-    if (user[0].pref === 'bi'){
-      app.db.collection("users").find({username: {$ne: user[0].username}, tags: {$in: user[0].tags}, 'like.name': {$ne: user[0].username}, blocked: {$ne: user[0].username}}).toArray().then((result)=>{
-        console.log(result[0]);
-      });
-    }
-  });
-  res.redirect('/');
-});
 
 app.get('*', (req, res)=>{
   res.render('404', {title: '404'});

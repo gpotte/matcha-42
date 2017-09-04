@@ -16,6 +16,8 @@
           <input type=text value="<%=profile.mail%>" name="mail" class="form-control" required>
           <label>Bio</label>
           <input type=text value="<%=profile.bio%>" name="bio" class="form-control">
+          <label>Age</label>
+          <input type=number value="<%=profile.age%>" name="age" class="form-control" required>
           <select name="sex" required>
             <%if (profile.sex === "male"){%>
               <option value="male">Male</option><option value="female">Female</option>

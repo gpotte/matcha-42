@@ -1,0 +1,34 @@
+<% include ../partials/header %>
+<ul id="visitList" class="col-xs-3 list-group">
+  <h2>Visitors List</h2>
+  <%for (notif of notifs){%>
+  <%if (notif.type === "visit"){%>
+    <li class="list-group-item"><a href="/user/<%=notif.name%>"><img id="profilePic" src="<%=notif.photo%>"/><strong> <%=notif.name%></strong></a></li>
+    <%}%>
+  <%}%>
+</ul>
+<ul id="likeList" class="col-xs-3 list-group">
+  <h2>Like List</h2>
+  <%for (notif of notifs){%>
+  <%if (notif.type === "like"){%>
+    <li class="list-group-item"><a href="/user/<%=notif.name%>"><img id="profilePic" src="<%=notif.photo%>"/><strong> <%=notif.name%></strong></a></li>
+    <%}%>
+  <%}%>
+</ul>
+<ul id="dislikeList" class="col-xs-3 list-group">
+  <h2>Dislike List</h2>
+  <%for (notif of notifs){%>
+  <%if (notif.type === "dislike"){%>
+    <li class="list-group-item"><a href="/user/<%=notif.name%>"><img id="profilePic" src="<%=notif.photo%>"/><strong> <%=notif.name%></strong></a></li>
+    <%}%>
+  <%}%>
+</ul>
+<ul id="matchList" class="col-xs-3 list-group">
+  <h2>Match List</h2>
+  <%for (notif of notifs){%>
+  <%if (notif.type === "match"){%>
+    <li class="list-group-item"><a href="/user/<%=notif.name%>"><img id="profilePic" src="<%=notif.photo%>"/><strong> <%=notif.name%></strong></a></li>
+    <%}%>
+  <%}%>
+</ul>
+<% include ../partials/footer %>

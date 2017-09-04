@@ -1,2 +1,13 @@
 <% include partials/header %>
+<div class="thumbnail">
+  <label>Order by: </label>
+  <select name="searchOrder" required>
+    <option value="fame">Fame</option>
+    <option value="age">Age</option>
+  </select>
+  <button class="btn btn-default btn-success">Search</button>
+</div>
+<div class="container" id="suggestionsResults">
+</div>
+<script src="/js/suggestions.js"></script>
 <% include partials/footer %>

@@ -24,7 +24,8 @@ router.post('/user/new', (req, res)=>{
         fame: 100,
         localisation: req.geoip.attributes.postalCode,
         connected: "Now",
-        blocked: ['a']
+        blocked: ['a'],
+        age: req.body.age
       };
 
       console.log(userObject);
@@ -90,7 +91,8 @@ router.post('/user/edit', middleware.loggedIn(), (req, res)=>{
     mail      : xss(req.body.mail),
     bio       : xss(req.body.bio),
     sex       : xss(req.body.sex),
-    pref      : xss(req.body.pref)
+    pref      : xss(req.body.pref),
+    age       : req.body.age
   },
   currentUser = {
     username  : req.cookies.user.username,
@@ -189,13 +191,13 @@ router.post('/user/change/loc', middleware.loggedIn(), (req, res)=>{
     username  : req.cookies.user.username,
     _id       : ObjectId(req.cookies.user.hash)
   };
+  if (loc.length === 5){
   req.app.db.collection("users").update(currentUser, {$set: {localisation: loc}}, (err, result)=>{
       if (err){res.send("Error")}
-      else {
-        console.log(result.result)
+      else
         res.send("Success")
-      }
     });
+  }
 });
 ////EDIT USER INFOS///////
 
