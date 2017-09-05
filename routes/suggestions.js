@@ -8,6 +8,12 @@ router.post('/suggestion', (req, res)=>{
   fame[0] = req.body.minFame === "" ? 0 : parseInt(req.body.minFame);
   fame[1] = req.body.maxFame === "" ? 1000 : parseInt(req.body.maxFame);
   app.db.collection("users").find(currentUser).toArray().then((user)=>{
+    if (req.body.tag !== ""){
+      req.app.db.collection("tags").find({tag: req.body.tag}).limit(1).toArray().then((tag)=>{
+        if (tag.length > 0)
+          user[0].tags = [{id: tag[0]._id, tag: tag[0].tag}];
+      });
+    }
     if (user[0].tags === undefined)
       res.send("missing tags");
     else {
@@ -121,4 +127,12 @@ router.post('/suggestion', (req, res)=>{
   });
 });
 
+router.post('/getTag', (req, res)=>{
+  req.app.db.collection("tags").find({tag: req.body.tag}).limit(1).toArray().then((tag)=>{
+    if (tag.length > 0)
+      res.send(tag[0]._id);
+    else
+      res.send("Error");
+  });
+});
 module.exports = router;

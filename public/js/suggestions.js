@@ -4,7 +4,6 @@ function searchProfiles(){
   $(formdata).each(function(index, obj){
     data[obj.name] = obj.value;
   });
-  console.log(data);
   $.ajax({
     type: 'POST',
     data: JSON.stringify(data),
