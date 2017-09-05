@@ -15,7 +15,14 @@ router.post('/login', (req, res)=>{
       logCheck.toArray().then((logCheck)=>{
         if (logCheck.length > 0)
         {
-          req.app.db.collection("users").update(userObject, {$set: {connected: "Now", localisation: req.geoip.attributes.postalCode}});
+          //GET ZIP CODE
+          request('http://ip-api.com/json', function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                body = JSON.parse(body)
+                req.app.db.collection("users").update(userObject, {$set: {connected: "Now", localisation: body.zip}});
+             }
+          });
+          //GET ZIP CODE
           res.cookie("user", {username: username, hash: logCheck[0]._id, photo: logCheck[0].photo[0]});
           res.send("Success");
         }

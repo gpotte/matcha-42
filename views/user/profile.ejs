@@ -42,7 +42,9 @@
   <h5><%=profile.age%> years</h5>
   <h5><form id="zipcode">
     <label>Localisation : </label><input type=text pattern="[0-9]{5}" name=loc value="<%=profile.localisation%>">
+  <% if (profile.username === user.username) {%>
     <input type=submit value="change ZipCode">
+  <%}%>
   </form></h5>
   <h5>Fame : <%=profile.fame%></h5>
   <h4>interests:</h4>

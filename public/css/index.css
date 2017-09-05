@@ -94,3 +94,13 @@ label {
   text-align: center;
   background-color: #eee;
 }
+
+.msgLink {
+  color:#000000 !important;
+  text-decoration:none;
+}
+
+.timestamp {
+  float: right;
+  margin-top: -3%;
+}

@@ -1,0 +1,16 @@
+<% include ../partials/header %>
+<ul class="list-group">
+<%for (message of messages){%>
+<li class="list-group-item">
+  <a href="<%=message.url%>" class="msgLink">
+    <img id="profilePic" src="<%=message.photo%>"/>
+    <strong><%=message.name%></strong>
+    <%if (message.msg){%>
+      <p><%=message.msg%></p>
+    <%}%>
+    <span class="badge timestamp"><%=message.date%></span>
+  </a>
+</li><br>
+<%}%>
+</ul>
+<% include ../partials/footer %>

@@ -30,7 +30,7 @@
             <ul class="nav navbar-nav navbar-right">
               <%if (locals.user){%>
                 <li><a href="/user/<%=user.username%>"><img id="profilePic" src="<%=user.photo%>"/> <%=user.username%></a></li>
-                <li><a href="/messages/tchat">messages</a></li>
+                <li><a href="/messages" id="messagesTab">messages</a></li>
                 <li class="dropdown" id="notif-container">
                   <% include ./notifs %>
                 </li>

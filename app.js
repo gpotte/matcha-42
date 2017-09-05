@@ -15,6 +15,7 @@ where           = require('node-where'),
 ObjectId        = require('mongodb').ObjectID,
 dateFormat      = require('dateformat'),
 sendmail        = require('sendmail')(),
+request         = require('request'),
 middleware      = require(__dirname + "/functions/middleware.js");
 
 if (!process.env.PWD) {
@@ -80,6 +81,9 @@ app.use('/', likeRoute);
 //SUGGESTIONS + RESEARCH ROUTES
 app.use('/', suggestionsRoute);
 ///////////////////////EXPRESS ROUTER//////////////////////////////////////
+
+app.get('/test', (req, res)=>{
+});
 
 app.get('*', (req, res)=>{
   res.render('404', {title: '404'});

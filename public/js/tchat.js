@@ -33,7 +33,8 @@ $(function () {
   });
 
   $('#tchatForm').submit(function(){
-    socket.emit('chat message', {msg: $('#tchatInput').val(), room: getSegment(window.location.href, 2)});
+    socket.emit('chat message', {msg: $('#tchatInput').val(), room: getSegment(window.location.href, 2),
+                                users: [getSegment(window.location.href, 3), getSegment(window.location.href, 4)]});
     $('#tchatInput').val('');
     return false;
   });

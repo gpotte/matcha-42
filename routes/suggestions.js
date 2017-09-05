@@ -7,6 +7,7 @@ router.post('/suggestion', (req, res)=>{
   age[1] = req.body.maxAge === "" ? 250 : parseInt(req.body.maxAge);
   fame[0] = req.body.minFame === "" ? 0 : parseInt(req.body.minFame);
   fame[1] = req.body.maxFame === "" ? 1000 : parseInt(req.body.maxFame);
+
   app.db.collection("users").find(currentUser).toArray().then((user)=>{
     if (req.body.tag !== ""){
       req.app.db.collection("tags").find({tag: req.body.tag}).limit(1).toArray().then((tag)=>{
@@ -14,6 +15,7 @@ router.post('/suggestion', (req, res)=>{
           user[0].tags = [{id: tag[0]._id, tag: tag[0].tag}];
       });
     }
+    user[0].localisation = req.body.location === "" ? user[0].localisation : req.body.location;
     if (user[0].tags === undefined)
       res.send("missing tags");
     else {

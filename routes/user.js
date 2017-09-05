@@ -22,7 +22,6 @@ router.post('/user/new', (req, res)=>{
         pref: req.body.pref,
         sex: req.body.sex,
         fame: 100,
-        localisation: req.geoip.attributes.postalCode,
         connected: "Now",
         blocked: ['a'],
         age: parseInt(req.body.age)
@@ -44,6 +43,15 @@ router.post('/user/new', (req, res)=>{
               req.app.db.collection("users").insert(userObject, (err, result)=>{
                 if (err){res.send("Error")}
                 else {
+                  var localisation;
+                  //GET ZIP CODE
+                  request('http://ip-api.com/json', function (error, response, body) {
+                    if (!error && response.statusCode == 200) {
+                        body = JSON.parse(body)
+                        req.app.db.collection("users").update(userObject, {$set: {localisation: body.zip}});
+                     }
+                  });
+                  //GET ZIP CODE
                   res.cookie("user", {username: result.ops[0].username, hash: result.ops[0]._id, photo: result.ops[0].photo[0]});
                   res.send("Success")
                 }
