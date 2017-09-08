@@ -100,7 +100,7 @@ router.post('/user/edit', middleware.loggedIn(), (req, res)=>{
     bio       : xss(req.body.bio),
     sex       : xss(req.body.sex),
     pref      : xss(req.body.pref),
-    age       : req.body.age
+    age       : parseInt(req.body.age)
   },
   currentUser = {
     username  : req.cookies.user.username,

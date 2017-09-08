@@ -89,8 +89,8 @@ io.on('connection', (socket)=>{
         app.db.collection("users").update({username: data.users[1]}, {$addToSet: {unread: data.room}});
       else
         app.db.collection("users").update({username: data.users[0]}, {$addToSet: {unread: data.room}});
-      app.db.collection("tchat").insert({room: data.room, msg: data.msg, pseudo: socket.pseudo, date: dateFormat(), time: Date.now()});
-      io.sockets.in(data.room).emit('chat message', {pseudo: socket.pseudo, msg: data.msg});
+      app.db.collection("tchat").insert({room: data.room, msg: xss(data.msg), pseudo: socket.pseudo, date: dateFormat(), time: Date.now()});
+      io.sockets.in(data.room).emit('chat message', {pseudo: socket.pseudo, msg: xss(data.msg)});
   });
 });
 

@@ -81,9 +81,16 @@ app.use('/', likeRoute);
 //SUGGESTIONS + RESEARCH ROUTES
 app.use('/', suggestionsRoute);
 ///////////////////////EXPRESS ROUTER//////////////////////////////////////
-
-app.get('/test', (req, res)=>{
+app.get('/test', (req ,res)=>{
+  var currentUser = {username: req.cookies.user.username};
+  app.db.collection("users").find(currentUser).toArray().then((user)=>{
+  app.db.collection("users").find({pref: {$in: ["hetero", "bi"]}, localisation: user[0].localisation,
+                              username: {$ne: user[0].username}, tags: {$in: user[0].tags}, 'like.name': {$ne: user[0].username},
+                              blocked: {$ne: user[0].username}}).sort({fame: -1}).toArray().then((result)=>{
+                                console.log(result)
+                              });
 });
+})
 
 app.get('*', (req, res)=>{
   res.render('404', {title: '404'});

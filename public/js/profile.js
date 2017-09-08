@@ -16,7 +16,7 @@ $(".likeBtn").click(()=>{
 //LIKING FUNCTION
 $(".container").on("click", "#liked", ()=>{
     var user = window.location.href.split('/')[4],
-    photo    = $("#profilePic").attr("src");
+    photo    = $("#firstProfilePic").attr("src");
     $.ajax({
       type: 'POST',
       data: JSON.stringify({user: user, photo: photo}),
@@ -36,7 +36,7 @@ $(".container").on("click", "#liked", ()=>{
 //DISLIKING FUNCTION
 $(".container").on("click", "#notLiked", ()=>{
   var user = window.location.href.split('/')[4],
-  photo    = $("#profilePic").attr("src");
+  photo    = $("#firstProfilePic").attr("src");
   $.ajax({
     type: 'POST',
     data: JSON.stringify({user: user, photo: photo}),

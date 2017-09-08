@@ -27,7 +27,7 @@ router.post('/notifications', middleware.loggedIn(), (req, res) => {
   if (visits)
   {
     notifs = visits.concat(message, like, match, dislike);
-    notifs.sort(function(a,b){return b.date - a.date});
+    notifs = notifs.sort(function(a,b){return a.time - b.time}).reverse();
     notifs = notifs.slice(-10);
   }
   res.render('partials/notifs', {newNotifs: profile[0].notif, notifs: notifs});

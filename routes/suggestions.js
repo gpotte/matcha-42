@@ -35,7 +35,10 @@ router.post('/suggestion', (req, res)=>{
             {
               if (sort === "age")
                 result.sort((a, b)=>{return a.age- b.age });
-              res.send(result);
+              if (sort === "tags")
+                tagSort(user[0], result, res);
+              else
+                res.send(result);
             }
             });
           });
@@ -54,7 +57,10 @@ router.post('/suggestion', (req, res)=>{
             {
               if (sort === "age")
                 result.sort((a, b)=>{return a.age- b.age });
-              res.send(result);
+              if (sort === "tags")
+                tagSort(user[0], result, res);
+              else
+                res.send(result);
             }
           });
         });
@@ -73,7 +79,10 @@ router.post('/suggestion', (req, res)=>{
               {
                 if (sort === "age")
                   result.sort((a, b)=>{return a.age- b.age });
-                res.send(result);
+                if (sort === "tags")
+                  tagSort(user[0], result, res);
+                else
+                  res.send(result);
               }
           });
         }
@@ -87,7 +96,10 @@ router.post('/suggestion', (req, res)=>{
               {
                 if (sort === "age")
                   result.sort((a, b)=>{return a.age- b.age });
-                res.send(result);
+                if (sort === "tags")
+                  tagSort(user[0], result, res);
+                else
+                  res.send(result);
               }
           });
         }
@@ -104,8 +116,11 @@ router.post('/suggestion', (req, res)=>{
               else
               {
                 if (sort === "age")
-                  result.sort((a, b)=>{return a.age - b.age });
-                res.send(result);
+                  result.sort((a, b)=>{return a.age- b.age });
+                if (sort === "tags")
+                  tagSort(user[0], result, res);
+                else
+                  res.send(result);
               }
           });
         }
@@ -118,8 +133,11 @@ router.post('/suggestion', (req, res)=>{
             else
             {
               if (sort === "age")
-                result.sort((a, b)=>{return a.age - b.age });
-              res.send(result);
+                result.sort((a, b)=>{return a.age- b.age });
+              if (sort === "tags")
+                tagSort(user[0], result, res);
+              else
+                res.send(result);
             }
           });
         }
@@ -137,4 +155,20 @@ router.post('/getTag', (req, res)=>{
       res.send("Error");
   });
 });
+
+async function tagSort(Cuser, result, res){
+	result.forEach((user)=>{
+	    user.matchTag = 0;
+	    user.tags.forEach((tag)=>{
+	       Cuser.tags.forEach((tmp)=>{
+	          if (tmp.tag === tag.tag){
+               user.matchTag++;
+             }
+          });
+        });
+      });
+  result = result.sort((a, b)=>{return (b.matchTag - a.matchTag)});
+  res.send(result);
+}
+
 module.exports = router;

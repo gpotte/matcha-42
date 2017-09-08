@@ -13,7 +13,7 @@
   <div class="carousel-inner">
     <% for (i in profile.photo) { %>
       <% if (i == 0) {%>
-        <div class="item active" data-toggle="modal" data-target="#photoModal<%=i%>"><img src="<%=profile.photo[i]%>"></img></div>
+        <div class="item active" data-toggle="modal" data-target="#photoModal<%=i%>"><img id="firstProfilePic" src="<%=profile.photo[i]%>"></img></div>
       <% } else {%>
         <div class="item" data-toggle="modal" data-target="#photoModal<%=i%>"><img src="<%=profile.photo[i]%>"></img></div>
       <%}%>
